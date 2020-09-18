@@ -59,7 +59,11 @@ jobs:
 ### END TODO REMOVE WHEN phpcq COMPOSER PLUGIN IS READY
 
       - name: Install phpcq toolchain
-        run: $GITHUB_WORKSPACE/${{ env.PHPCQ_DIRECTORY }}/phpcq install -v
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: $GITHUB_WORKSPACE/${{ env.PHPCQ_DIRECTORY }}/phpcq install -v
 
       - name: Run tests
         run: $GITHUB_WORKSPACE/${{ env.PHPCQ_DIRECTORY }}/phpcq run -v
