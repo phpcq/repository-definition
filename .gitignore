@@ -1,0 +1,22 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.buildpath
+.project
+.settings/
+.phpcq/build
+.build/
+.external*/
+.idea/
+nbproject/
+
+# symfony related
+var
+.env*.local
+# composer related
+vendor/
+
+# phpunit releated
+.phpunit.result.cache
