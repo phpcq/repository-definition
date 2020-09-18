@@ -1,0 +1,39 @@
+{
+  "name": "phpcq/repository-definition",
+  "description": "PHP code quality project.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christian Schiffler",
+      "email": "c.schiffler@cyberspectrum.de",
+      "homepage": "http://cyberspectrum.de",
+      "role": "lead"
+    },
+    {
+      "name": "David Molineus",
+      "email": "david.molineus@netzmacht.de",
+      "homepage": "https://netzmacht.de",
+      "role": "lead"
+    }
+  ],
+  "require": {
+    "php": "^7.3",
+    "ext-hash": "*",
+    "ext-json": "*"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Phpcq\\RepositoryDefinition\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Phpcq\\RepositoryDefinition\\Test\\": "tests/"
+    }
+  }
+}
