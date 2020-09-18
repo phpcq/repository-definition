@@ -9,12 +9,23 @@ use Phpcq\RepositoryDefinition\VersionRequirementList;
 
 class ToolVersion
 {
-    private string $name;
-    private string $version;
-    private ?string $pharUrl;
-    private ?string $signatureUrl;
-    private ?ToolHash $hash;
-    private ToolRequirements $requirements;
+    /** @var string */
+    private $name;
+
+    /** @var string */
+    private $version;
+
+    /** @var ?string */
+    private $pharUrl;
+
+    /** @var ?string */
+    private $signatureUrl;
+
+    /** @var ToolHash|null */
+    private $hash;
+
+    /** @var ToolRequirements */
+    private $requirements;
 
     public function __construct(
         string $name,

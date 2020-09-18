@@ -19,15 +19,17 @@ class Tool implements IteratorAggregate
 {
     /**
      * The name of the tool.
+     *
+     * @var string
      */
-    private string $name;
+    private $name;
 
     /**
      * All versions of the tool.
      *
      * @var ToolVersion[]
      */
-    private array $versions = [];
+    private $versions = [];
 
     /**
      * Create a new instance.
