@@ -72,7 +72,7 @@ abstract class AbstractHash
     /**
      * @throws InvalidHashException When the hash type is unknown.
      */
-    private function __construct(string $type, string $value)
+    final private function __construct(string $type, string $value)
     {
         if (!in_array($type, [self::SHA_1, self::SHA_256, self::SHA_384, self::SHA_512])) {
             throw new InvalidHashException($type, $value);
