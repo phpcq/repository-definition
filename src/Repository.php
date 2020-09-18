@@ -5,30 +5,58 @@ declare(strict_types=1);
 namespace Phpcq\RepositoryDefinition;
 
 use Generator;
-use Phpcq\RepositoryDefinition\Plugin\Plugin;
-use Phpcq\RepositoryDefinition\Tool\Tool;
+use Phpcq\RepositoryDefinition\Plugin\PluginInterface;
+use Phpcq\RepositoryDefinition\Tool\ToolInterface;
 
-class Repository
+class Repository implements RepositoryInterface
 {
-    /** @var Tool[] */
+    /** @var ToolInterface[] */
     private $tools = [];
 
-    /** @var Plugin[] */
+    /** @var PluginInterface[] */
     private $plugins = [];
 
-    public function getTool(string $name): Tool
+    public function hasTool(string $name): bool
+    {
+        return isset($this->tools[$name]);
+    }
+
+    public function addTool(ToolInterface $tool): void
+    {
+        if ($this->hasTool($tool->getName())) {
+            throw new \InvalidArgumentException('Tool ' . $tool->getName() . ' already exists');
+        }
+
+        $this->tools[$tool->getName()] = $tool;
+    }
+
+    public function getTool(string $name): ToolInterface
     {
         if (!isset($this->tools[$name])) {
-            $this->tools[$name] = new Tool($name);
+            throw new \RuntimeException('Unknown tool ' . $name);
         }
 
         return $this->tools[$name];
     }
 
-    public function getPlugin(string $name): Plugin
+    public function hasPlugin(string $name): bool
+    {
+        return isset($this->plugins[$name]);
+    }
+
+    public function addPlugin(PluginInterface $plugin): void
+    {
+        if ($this->hasPlugin($plugin->getName())) {
+            throw new \InvalidArgumentException('Tool ' . $plugin->getName() . ' already exists');
+        }
+
+        $this->plugins[$plugin->getName()] = $plugin;
+    }
+
+    public function getPlugin(string $name): PluginInterface
     {
         if (!isset($this->plugins[$name])) {
-            $this->plugins[$name] = new Plugin($name);
+            throw new \RuntimeException('Unknown plugin ' . $name);
         }
 
         return $this->plugins[$name];
@@ -37,9 +65,9 @@ class Repository
     /**
      * Iterate over all tools.
      *
-     * @return Generator|Tool[]
+     * @return Generator|ToolInterface[]
      *
-     * @psalm-return Generator<Tool>
+     * @psalm-return Generator<ToolInterface>
      */
     public function iterateTools(): Generator
     {
@@ -51,9 +79,9 @@ class Repository
     /**
      * Iterate over all plugins.
      *
-     * @return Generator|Plugin[]
+     * @return Generator|PluginInterface[]
      *
-     * @psalm-return Generator<Plugin>
+     * @psalm-return Generator<PluginInterface>
      */
     public function iteratePlugins(): Generator
     {

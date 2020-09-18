@@ -7,7 +7,7 @@ namespace Phpcq\RepositoryDefinition\Tool;
 use Phpcq\RepositoryDefinition\VersionRequirement;
 use Phpcq\RepositoryDefinition\VersionRequirementList;
 
-class ToolVersion
+class ToolVersion implements ToolVersionInterface
 {
     /** @var string */
     private $name;
@@ -58,35 +58,14 @@ class ToolVersion
         return $this->pharUrl;
     }
 
-    public function setPharUrl(string $pharUrl): self
-    {
-        $this->pharUrl = $pharUrl;
-
-        return $this;
-    }
-
     public function getHash(): ?ToolHash
     {
         return $this->hash;
     }
 
-    public function setHash(ToolHash $hash): self
-    {
-        $this->hash = $hash;
-
-        return $this;
-    }
-
     public function getSignatureUrl(): ?string
     {
         return $this->signatureUrl;
-    }
-
-    public function setSignatureUrl(string $signatureUrl): self
-    {
-        $this->signatureUrl = $signatureUrl;
-
-        return $this;
     }
 
     public function getRequirements(): ToolRequirements
@@ -98,13 +77,13 @@ class ToolVersion
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    public function merge(ToolVersion $other): void
+    public function merge(ToolVersionInterface $other): void
     {
         if (null !== ($data = $other->getPharUrl()) && $data !== $this->pharUrl) {
-            $this->setPharUrl($data);
+            $this->pharUrl = $data;
         }
         if (null !== ($data = $other->getSignatureUrl()) && $data !== $this->signatureUrl) {
-            $this->setSignatureUrl($data);
+            $this->signatureUrl = $data;
         }
         if (null !== ($data = $other->getHash()) && $data !== $this->hash) {
             if (
@@ -112,7 +91,7 @@ class ToolVersion
                 || $data->getType() !== $this->hash->getType()
                 || $data->getValue() !== $this->hash->getValue()
             ) {
-                $this->setHash(ToolHash::create($data->getType(), $data->getValue()));
+                $this->hash = ToolHash::create($data->getType(), $data->getValue());
             }
         }
 

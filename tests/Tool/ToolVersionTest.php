@@ -47,23 +47,4 @@ class ToolVersionTest extends TestCase
         $this->assertSame($hash, $version->getHash());
         $this->assertSame('https://example.org/supertool.phar.sig', $version->getSignatureUrl());
     }
-
-    public function setterProvider(): array
-    {
-        return [
-            ['PharUrl', 'https://example.org/supertool.phar'],
-            ['Hash', ToolHash::create(ToolHash::SHA_512, 'abcdefgh')],
-            ['SignatureUrl', 'https://example.org/supertool.phar.sig'],
-        ];
-    }
-
-    /**
-     * @dataProvider setterProvider
-     */
-    public function testSetterWorks(string $propertyName, $value): void
-    {
-        $version = new ToolVersion('supertool', '1.0.0', null, null, null, null);
-        $this->assertSame($version, call_user_func([$version, 'set' . $propertyName], $value));
-        $this->assertSame($value, call_user_func([$version, 'get' . $propertyName]));
-    }
 }
