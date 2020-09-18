@@ -9,9 +9,11 @@ namespace Phpcq\RepositoryDefinition\Plugin;
  */
 class PhpFilePluginVersion extends AbstractPluginVersion implements PhpFilePluginVersionInterface
 {
-    private string $filePath;
+    /** @var string */
+    private $filePath;
 
-    private ?string $signaturePath;
+    /** @var string|null */
+    private $signaturePath;
 
     public function __construct(
         string $name,

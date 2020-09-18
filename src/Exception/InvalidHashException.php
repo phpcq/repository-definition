@@ -8,8 +8,11 @@ use RuntimeException;
 
 class InvalidHashException extends RuntimeException
 {
-    private string $hashType;
-    private string $hashValue;
+    /** @var string */
+    private $hashType;
+
+    /** @var string */
+    private $hashValue;
 
     /**
      * Create a new instance.

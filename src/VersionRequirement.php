@@ -6,9 +6,11 @@ namespace Phpcq\RepositoryDefinition;
 
 class VersionRequirement
 {
-    private string $name;
+    /** @var string */
+    private $name;
 
-    private string $constraint;
+    /** @var string */
+    private $constraint;
 
     /**
      * Create a new instance.

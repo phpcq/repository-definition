@@ -10,23 +10,31 @@ class PluginRequirements
 {
     /**
      * Platform requirements.
+     *
+     * @var VersionRequirementList
      */
-    private VersionRequirementList $phpRequirements;
+    private $phpRequirements;
 
     /**
      * Required tools.
+     *
+     * @var VersionRequirementList
      */
-    private VersionRequirementList $toolRequirements;
+    private $toolRequirements;
 
     /**
      * Required peer plugins.
+     *
+     * @var VersionRequirementList
      */
-    private VersionRequirementList $pluginRequirements;
+    private $pluginRequirements;
 
     /**
      * Required composer libraries.
+     *
+     * @var VersionRequirementList
      */
-    private VersionRequirementList $composerRequirements;
+    private $composerRequirements;
 
     /**
      * Create a new instance.
@@ -41,40 +49,32 @@ class PluginRequirements
 
     /**
      * Retrieve phpRequirements.
-     *
-     * @return VersionRequirementList
      */
-    public function getPhpRequirements()
+    public function getPhpRequirements(): VersionRequirementList
     {
         return $this->phpRequirements;
     }
 
     /**
      * Retrieve toolRequirements.
-     *
-     * @return VersionRequirementList
      */
-    public function getToolRequirements()
+    public function getToolRequirements(): VersionRequirementList
     {
         return $this->toolRequirements;
     }
 
     /**
      * Retrieve pluginRequirements.
-     *
-     * @return VersionRequirementList
      */
-    public function getPluginRequirements()
+    public function getPluginRequirements(): VersionRequirementList
     {
         return $this->pluginRequirements;
     }
 
     /**
      * Retrieve composerRequirements.
-     *
-     * @return VersionRequirementList
      */
-    public function getComposerRequirements()
+    public function getComposerRequirements(): VersionRequirementList
     {
         return $this->composerRequirements;
     }

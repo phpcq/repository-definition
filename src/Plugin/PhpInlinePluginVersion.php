@@ -9,7 +9,8 @@ namespace Phpcq\RepositoryDefinition\Plugin;
  */
 class PhpInlinePluginVersion extends AbstractPluginVersion
 {
-    private string $code;
+    /** @var string */
+    private $code;
 
     public function __construct(
         string $name,

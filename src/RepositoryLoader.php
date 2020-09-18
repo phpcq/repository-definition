@@ -66,11 +66,11 @@ use RuntimeException;
  */
 final class RepositoryLoader
 {
-    /** @psalm-var  array<string, Tool> */
-    private array $tools = [];
+    /** @psalm-var array<string, Tool> */
+    private $tools = [];
 
-    /** @psalm-var  array<string, Plugin> */
-    private array $plugins = [];
+    /** @psalm-var array<string, Plugin> */
+    private $plugins = [];
 
     /** @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null */
     public static function load(string $baseDir): ?array

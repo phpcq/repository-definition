@@ -17,7 +17,7 @@ class VersionRequirementList implements IteratorAggregate
     /**
      * @var VersionRequirement[]
      */
-    private array $requirements = [];
+    private $requirements = [];
 
     /**
      * Create a new instance.

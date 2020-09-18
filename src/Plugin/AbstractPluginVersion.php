@@ -10,11 +10,20 @@ use RuntimeException;
 
 abstract class AbstractPluginVersion implements PluginVersionInterface
 {
-    private string $name;
-    private string $version;
-    private string $apiVersion;
-    private PluginHash $hash;
-    private PluginRequirements $requirements;
+    /** @var string */
+    private $name;
+
+    /** @var string */
+    private $version;
+
+    /** @var string */
+    private $apiVersion;
+
+    /** @var PluginHash */
+    private $hash;
+
+    /** @var PluginRequirements */
+    private $requirements;
 
     public function __construct(
         string $name,

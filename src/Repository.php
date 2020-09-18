@@ -11,10 +11,10 @@ use Phpcq\RepositoryDefinition\Tool\Tool;
 class Repository
 {
     /** @var Tool[] */
-    private array $tools = [];
+    private $tools = [];
 
     /** @var Plugin[] */
-    private array $plugins = [];
+    private $plugins = [];
 
     public function getTool(string $name): Tool
     {

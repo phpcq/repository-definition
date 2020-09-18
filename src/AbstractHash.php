@@ -27,9 +27,11 @@ abstract class AbstractHash
     public const SHA_384 = 'sha-384';
     public const SHA_512 = 'sha-512';
 
-    private string $type;
+    /** @var string */
+    private $type;
 
-    private string $value;
+    /** @var string */
+    private $value;
 
     public function getType(): string
     {
