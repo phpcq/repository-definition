@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository\Plugin;
+namespace Phpcq\RepositoryDefinition\Plugin;
 
-use Phpcq\RepositoryDefinition\Repository\VersionRequirementList;
+use Phpcq\RepositoryDefinition\VersionRequirementList;
 
 class PluginRequirements
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository\Tool;
+namespace Phpcq\RepositoryDefinition\Tool;
 
-use Phpcq\RepositoryDefinition\Repository\VersionRequirementList;
+use Phpcq\RepositoryDefinition\VersionRequirementList;
 
 class ToolRequirements
 {

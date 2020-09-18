@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository;
+namespace Phpcq\RepositoryDefinition;
 
 use Generator;
-use Phpcq\RepositoryDefinition\Repository\Plugin\Plugin;
-use Phpcq\RepositoryDefinition\Repository\Tool\Tool;
+use Phpcq\RepositoryDefinition\Plugin\Plugin;
+use Phpcq\RepositoryDefinition\Tool\Tool;
 
 class Repository
 {

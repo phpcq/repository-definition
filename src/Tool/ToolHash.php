@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository\Tool;
+namespace Phpcq\RepositoryDefinition\Tool;
 
-use Phpcq\RepositoryDefinition\Repository\AbstractHash;
+use Phpcq\RepositoryDefinition\AbstractHash;
 
 class ToolHash extends AbstractHash
 {

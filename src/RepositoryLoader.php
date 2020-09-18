@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository;
+namespace Phpcq\RepositoryDefinition;
 
-use Phpcq\RepositoryDefinition\Repository\Plugin\PhpFilePluginVersion;
-use Phpcq\RepositoryDefinition\Repository\Plugin\PhpInlinePluginVersion;
-use Phpcq\RepositoryDefinition\Repository\Plugin\Plugin;
-use Phpcq\RepositoryDefinition\Repository\Plugin\PluginHash;
-use Phpcq\RepositoryDefinition\Repository\Plugin\PluginRequirements;
-use Phpcq\RepositoryDefinition\Repository\Plugin\PluginVersionInterface;
-use Phpcq\RepositoryDefinition\Repository\Tool\Tool;
-use Phpcq\RepositoryDefinition\Repository\Tool\ToolHash;
-use Phpcq\RepositoryDefinition\Repository\Tool\ToolRequirements;
-use Phpcq\RepositoryDefinition\Repository\Tool\ToolVersion;
+use Phpcq\RepositoryDefinition\Plugin\PhpFilePluginVersion;
+use Phpcq\RepositoryDefinition\Plugin\PhpInlinePluginVersion;
+use Phpcq\RepositoryDefinition\Plugin\Plugin;
+use Phpcq\RepositoryDefinition\Plugin\PluginHash;
+use Phpcq\RepositoryDefinition\Plugin\PluginRequirements;
+use Phpcq\RepositoryDefinition\Plugin\PluginVersionInterface;
+use Phpcq\RepositoryDefinition\Tool\Tool;
+use Phpcq\RepositoryDefinition\Tool\ToolHash;
+use Phpcq\RepositoryDefinition\Tool\ToolRequirements;
+use Phpcq\RepositoryDefinition\Tool\ToolVersion;
 use RuntimeException;
 
 /**

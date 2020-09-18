@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository\Tool;
+namespace Phpcq\RepositoryDefinition\Tool;
 
 use Generator;
 use InvalidArgumentException;

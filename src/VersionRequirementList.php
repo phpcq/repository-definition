@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Phpcq\RepositoryDefinition\Repository;
+namespace Phpcq\RepositoryDefinition;
 
 use Generator;
 use IteratorAggregate;
