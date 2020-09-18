@@ -9,7 +9,7 @@ use Traversable;
 /**
  * Interface ToolInterface
  *
- * @psalm-implements Traversable<ToolVersionInterface>
+ * @extends Traversable<ToolVersionInterface>
  */
 interface ToolInterface extends Traversable
 {

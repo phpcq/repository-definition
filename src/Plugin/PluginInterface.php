@@ -7,7 +7,7 @@ namespace Phpcq\RepositoryDefinition\Plugin;
 use Traversable;
 
 /**
- * @psalm-implements Traversable<PluginVersionInterface>
+ * @extends Traversable<PluginVersionInterface>
  */
 interface PluginInterface extends Traversable
 {
