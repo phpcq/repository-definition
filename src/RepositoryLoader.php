@@ -17,55 +17,17 @@ use Phpcq\RepositoryDefinition\Tool\ToolVersion;
 use RuntimeException;
 
 use function array_values;
-use function is_file;
 
 /**
- * @psalm-type TRepositoryCheckSum = array{
- *   type: string,
- *   value: string,
- * }
- * @psalm-type TRepositoryIncludeList = list<array{
- *   url: string,
- *   checksum: TRepositoryCheckSum
- * }>
- * @psalm-type TRepositoryToolRequirements = array{
- *   php?: array<string, string>,
- *   composer?: array<string, string>,
- * }
- * @psalm-type TRepositoryToolVersion = array{
- *   version: string,
- *   url: string,
- *   requirements: TRepositoryToolRequirements,
- *   checksum?: TRepositoryCheckSum,
- *   signature?: string,
- * }
- * @psalm-type TRepositoryPluginRequirements = array{
- *   php?: array<string, string>,
- *   tool?: array<string, string>,
- *   plugin?: array<string, string>,
- *   composer?: array<string, string>,
- * }
- * @psalm-type TRepositoryPluginVersion = array{
- *   type: 'php-file'|'php-inline',
- *   version: string,
- *   api-version: string,
- *   requirements?: TRepositoryPluginRequirements,
- *   url?: string,
- *   code?: string,
- *   checksum?: TRepositoryCheckSum,
- *   signature?: string,
- * }
- * @psalm-type TRepositoryInclude = array{
- *  url: string,
- *  checksum: TRepositoryCheckSum
- * }
- * @psalm-type TRepositoryTool = list<TRepositoryToolVersion>
- * @psalm-type TRepositoryPlugin = list<TRepositoryPluginVersion>
- * @psalm-type TRepositoryContents = array{
- *  includes?: list<TRepositoryInclude>,
- *  tools?: array<string, TRepositoryTool>,
- *  plugins?: array<string, TRepositoryPlugin>,
- * }
+ * @psalm-import-type TRepositoryContents from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryTool from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryToolVersion from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryToolRequirements from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryPlugin from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryPluginVersion from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryPluginRequirements from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryCheckSum from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryIncludeList from JsonFileLoaderInterface
  */
 final class RepositoryLoader
 {
@@ -75,24 +37,23 @@ final class RepositoryLoader
     /** @psalm-var array<string, Plugin> */
     private $plugins = [];
 
+    /** @var JsonFileLoaderInterface */
+    private $fileLoader;
+
     /**
      * @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null
      *
      * @deprecated Use self::loadData instead
      */
-    public static function load(string $fileName): ?array
+    public static function load(string $fileName, ?JsonFileLoaderInterface $fileLoader = null): ?array
     {
-        return self::loadData($fileName);
+        return self::loadData($fileName, $fileLoader);
     }
 
     /** @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null */
-    public static function loadData(string $fileName): ?array
+    public static function loadData(string $fileName, ?JsonFileLoaderInterface $fileLoader = null): ?array
     {
-        if (!is_file($fileName)) {
-            return null;
-        }
-
-        $instance = new RepositoryLoader();
+        $instance = new RepositoryLoader($fileLoader);
         $instance->readFile($fileName);
 
         /** @psalm-var list<Tool> $tools */
@@ -110,10 +71,10 @@ final class RepositoryLoader
         ];
     }
 
-    public static function loadRepository(string $fileName): Repository
+    public static function loadRepository(string $fileName, JsonFileLoaderInterface $fileLoader = null): Repository
     {
         $repository = new Repository();
-        $data       = self::loadData($fileName);
+        $data       = self::loadData($fileName, $fileLoader);
         if ($data === null) {
             return $repository;
         }
@@ -128,14 +89,15 @@ final class RepositoryLoader
         return $repository;
     }
 
-    private function __construct()
+    private function __construct(?JsonFileLoaderInterface $fileLoader = null)
     {
+        $this->fileLoader = $fileLoader ?: new FileGetContentsJsonFileLoader();
     }
 
     private function readFile(string $fileName): void
     {
         /** @psalm-var TRepositoryContents $contents */
-        $contents = json_decode(file_get_contents($fileName), true);
+        $contents = $this->fileLoader->load($fileName);
         $baseDir  = dirname($fileName);
         if (isset($contents['tools'])) {
             $this->walkTools($contents['tools']);
