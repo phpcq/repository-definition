@@ -1,6 +1,6 @@
-[![Version](http://img.shields.io/packagist/v/phpcq/repository-definition.svg?style=flat-square)](https://packagist.org/packages/phpcq/phpcq)
-[![License](http://img.shields.io/packagist/l/phpcq/epository-definition.svg?style=flat-square)](https://github.com/phpcq/phpcq/blob/master/LICENSE)
-[![Downloads](http://img.shields.io/packagist/dt/phpcq/epository-definition.svg?style=flat-square)](https://packagist.org/packages/phpcq/phpcq)
+[![Version](http://img.shields.io/packagist/v/phpcq/repository-definition.svg?style=flat-square)](https://packagist.org/packages/phpcq/repository-definition)
+[![License](http://img.shields.io/packagist/l/phpcq/repository-definition.svg?style=flat-square)](https://github.com/phpcq/repository-definition/blob/master/LICENSE)
+[![Downloads](http://img.shields.io/packagist/dt/phpcq/repository-definition.svg?style=flat-square)](https://packagist.org/packages/phpcq/repository-definition)
 
 PHP code quality project
 ========================
