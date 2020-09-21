@@ -59,9 +59,11 @@ interface JsonFileLoaderInterface
     /**
      * Loads a json file and returns it data as array.
      *
+     * @psalm-param TRepositoryCheckSum|null $checksum
+     *
      * @throws JsonFileNotFoundException If file does not exists.
      *
      * @psalm-return TRepositoryContents
      */
-    public function load(string $file): array;
+    public function load(string $file, ?array $checksum = null): array;
 }

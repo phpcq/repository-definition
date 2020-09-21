@@ -94,10 +94,11 @@ final class RepositoryLoader
         $this->fileLoader = $fileLoader ?: new FileGetContentsJsonFileLoader();
     }
 
-    private function readFile(string $fileName): void
+    /** @psalm-param TRepositoryCheckSum|null $checksum */
+    private function readFile(string $fileName, ?array $checksum = null): void
     {
         /** @psalm-var TRepositoryContents $contents */
-        $contents = $this->fileLoader->load($fileName);
+        $contents = $this->fileLoader->load($fileName, $checksum);
         $baseDir  = dirname($fileName);
         if (isset($contents['tools'])) {
             $this->walkTools($contents['tools']);
@@ -183,7 +184,7 @@ final class RepositoryLoader
     private function walkIncludeFiles(array $includes, string $baseDir): void
     {
         foreach ($includes as $include) {
-            $this->readFile($baseDir . '/' . $include['url']);
+            $this->readFile($baseDir . '/' . $include['url'], $include['checksum'] ?? null);
         }
     }
 

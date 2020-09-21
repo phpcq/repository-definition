@@ -81,4 +81,13 @@ abstract class AbstractHash
         $this->type  = $type;
         $this->value = $value;
     }
+
+    final public function equals(AbstractHash $other): bool
+    {
+        if (! $other instanceof static) {
+            return false;
+        }
+
+        return $this->getType() === $other->getType() && $this->getValue() === $other->getValue();
+    }
 }
