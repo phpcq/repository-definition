@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Phpcq\RepositoryDefinition;
 
 use Generator;
+use Phpcq\RepositoryDefinition\Exception\PluginNotFoundException;
+use Phpcq\RepositoryDefinition\Exception\ToolNotFoundException;
 use Phpcq\RepositoryDefinition\Plugin\PluginInterface;
 use Phpcq\RepositoryDefinition\Tool\ToolInterface;
 
@@ -33,7 +35,7 @@ class Repository implements RepositoryInterface
     public function getTool(string $name): ToolInterface
     {
         if (!isset($this->tools[$name])) {
-            throw new \RuntimeException('Unknown tool ' . $name);
+            throw new ToolNotFoundException($name);
         }
 
         return $this->tools[$name];
@@ -56,7 +58,7 @@ class Repository implements RepositoryInterface
     public function getPlugin(string $name): PluginInterface
     {
         if (!isset($this->plugins[$name])) {
-            throw new \RuntimeException('Unknown plugin ' . $name);
+            throw new PluginNotFoundException($name);
         }
 
         return $this->plugins[$name];
