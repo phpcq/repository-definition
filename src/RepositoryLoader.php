@@ -73,14 +73,14 @@ final class RepositoryLoader
     private $plugins = [];
 
     /** @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null */
-    public static function load(string $baseDir): ?array
+    public static function load(string $fileName): ?array
     {
-        if (!is_file($baseDir . '/repository.json')) {
+        if (!is_file($fileName)) {
             return null;
         }
 
         $instance = new RepositoryLoader();
-        $instance->readFile($baseDir . '/repository.json');
+        $instance->readFile($fileName);
 
         /** @psalm-var list<Tool> $tools */
         $tools = array_values($instance->tools);
