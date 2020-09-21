@@ -41,20 +41,32 @@ final class RepositoryLoader
     private $fileLoader;
 
     /**
+     * @psalm-param TRepositoryCheckSum|null $checksum
+     *
      * @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null
      *
      * @deprecated Use self::loadData instead
      */
-    public static function load(string $fileName, ?JsonFileLoaderInterface $fileLoader = null): ?array
-    {
-        return self::loadData($fileName, $fileLoader);
+    public static function load(
+        string $fileName,
+        ?array $checksum = null,
+        ?JsonFileLoaderInterface $fileLoader = null
+    ): ?array {
+        return self::loadData($fileName, $checksum, $fileLoader);
     }
 
-    /** @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null */
-    public static function loadData(string $fileName, ?JsonFileLoaderInterface $fileLoader = null): ?array
-    {
+    /**
+     * @psalm-param TRepositoryCheckSum|null $checksum
+     *
+     * @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null
+     */
+    public static function loadData(
+        string $fileName,
+        ?array $checksum = null,
+        ?JsonFileLoaderInterface $fileLoader = null
+    ): ?array {
         $instance = new RepositoryLoader($fileLoader);
-        $instance->readFile($fileName);
+        $instance->readFile($fileName, $checksum);
 
         /** @psalm-var list<Tool> $tools */
         $tools = array_values($instance->tools);
@@ -71,10 +83,14 @@ final class RepositoryLoader
         ];
     }
 
-    public static function loadRepository(string $fileName, JsonFileLoaderInterface $fileLoader = null): Repository
-    {
+    /** @psalm-param TRepositoryCheckSum|null $checksum */
+    public static function loadRepository(
+        string $fileName,
+        ?array $checksum = null,
+        JsonFileLoaderInterface $fileLoader = null
+    ): Repository {
         $repository = new Repository();
-        $data       = self::loadData($fileName, $fileLoader);
+        $data       = self::loadData($fileName, $checksum, $fileLoader);
         if ($data === null) {
             return $repository;
         }
