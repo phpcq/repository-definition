@@ -16,6 +16,9 @@ use Phpcq\RepositoryDefinition\Tool\ToolRequirements;
 use Phpcq\RepositoryDefinition\Tool\ToolVersion;
 use RuntimeException;
 
+use function array_values;
+use function is_file;
+
 /**
  * @psalm-type TRepositoryCheckSum = array{
  *   type: string,
@@ -72,8 +75,18 @@ final class RepositoryLoader
     /** @psalm-var array<string, Plugin> */
     private $plugins = [];
 
-    /** @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null */
+    /**
+     * @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null
+     *
+     * @deprecated Use self::loadData instead
+     */
     public static function load(string $fileName): ?array
+    {
+        return self::loadData($fileName);
+    }
+
+    /** @psalm-return array{tools: list<Tool>, plugins: list<Plugin>}|null */
+    public static function loadData(string $fileName): ?array
     {
         if (!is_file($fileName)) {
             return null;
@@ -95,6 +108,24 @@ final class RepositoryLoader
             'tools'   => $tools,
             'plugins' => $plugins,
         ];
+    }
+
+    public static function loadRepository(string $fileName): Repository
+    {
+        $repository = new Repository();
+        $data       = self::loadData($fileName);
+        if ($data === null) {
+            return $repository;
+        }
+
+        foreach ($data['plugins'] as $plugin) {
+            $repository->addPlugin($plugin);
+        }
+        foreach ($data['tools'] as $tool) {
+            $repository->addTool($tool);
+        }
+
+        return $repository;
     }
 
     private function __construct()
