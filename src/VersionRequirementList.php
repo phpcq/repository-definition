@@ -65,4 +65,11 @@ class VersionRequirementList implements IteratorAggregate
             yield $requirement;
         }
     }
+
+    public function __clone()
+    {
+        foreach ($this->requirements as $name => $requirement) {
+            $this->requirements[$name] = clone $requirement;
+        }
+    }
 }

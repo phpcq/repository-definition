@@ -50,4 +50,10 @@ class ToolRequirements
     {
         return $this->composerRequirements;
     }
+
+    public function __clone()
+    {
+        $this->composerRequirements = clone $this->composerRequirements;
+        $this->phpRequirements      = clone $this->phpRequirements;
+    }
 }
