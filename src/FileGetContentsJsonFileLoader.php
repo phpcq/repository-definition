@@ -13,7 +13,7 @@ use function json_decode;
 use const JSON_THROW_ON_ERROR;
 
 /**
- * @psalm-import-type TRepositoryContents from JsonFileLoaderInterface
+ * @psalm-import-type TRepositoryContents from RepositoryLoader
  */
 final class FileGetContentsJsonFileLoader implements JsonFileLoaderInterface
 {
