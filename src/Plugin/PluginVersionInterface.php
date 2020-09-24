@@ -15,9 +15,9 @@ interface PluginVersionInterface
 
     public function getVersion(): string;
 
-    public function getCode(): string;
+    public function getFilePath(): string;
 
-    public function getSignature(): ?string;
+    public function getSignaturePath(): ?string;
 
     public function getHash(): PluginHash;
 

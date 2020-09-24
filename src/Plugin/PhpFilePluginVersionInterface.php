@@ -9,7 +9,4 @@ namespace Phpcq\RepositoryDefinition\Plugin;
  */
 interface PhpFilePluginVersionInterface extends PluginVersionInterface
 {
-    public function getFilePath(): string;
-
-    public function getSignaturePath(): ?string;
 }

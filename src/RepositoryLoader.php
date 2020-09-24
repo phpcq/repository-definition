@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Phpcq\RepositoryDefinition;
 
 use Phpcq\RepositoryDefinition\Plugin\PhpFilePluginVersion;
-use Phpcq\RepositoryDefinition\Plugin\PhpInlinePluginVersion;
 use Phpcq\RepositoryDefinition\Plugin\Plugin;
 use Phpcq\RepositoryDefinition\Plugin\PluginHash;
 use Phpcq\RepositoryDefinition\Plugin\PluginRequirements;
@@ -218,15 +217,6 @@ final class RepositoryLoader
                     $baseDir . '/' . $information['url'],
                     $information['signature'] ?? null,
                     $this->loadPluginHash($information['checksum'] ?? null)
-                );
-            case 'php-inline':
-                assert(isset($information['code']), 'Code is mandatory for inline plugins');
-                return new PhpInlinePluginVersion(
-                    $name,
-                    $information['version'],
-                    $information['api-version'],
-                    $this->loadPluginRequirements($information['requirements'] ?? []),
-                    $information['code']
                 );
         }
 
