@@ -1,0 +1,40 @@
+{
+    "plugins": {
+        "include": [
+            {
+                "api-version": "1.0.0",
+                "version": "1.0.0",
+                "type": "php-file",
+                "url": "include-plugin-1.0.0.php",
+                "signature": "include-plugin-1.0.0.php.asc",
+                "requirements": {
+                    "tool": {
+                        "include": "^3.0 || ^2.0"
+                    }
+                },
+                "checksum": {
+                    "type": "sha-512",
+                    "value": "13dc70e64f48409a145bf7ca2b3bb47414afadca416b050f05e2e4b9898fd417f99507acd519f6e9501fc89d1e5946037ad9ec5ab83e7c697110f14a2bbba986"
+                }
+            }
+        ]
+    },
+    "tools": {
+        "include-relative": [
+            {
+                "version": "1.0.0",
+                "url": "include-tool-1.0.0.php",
+                "signature": "include-tool-1.0.0.php.asc",
+                "requirements": {}
+            }
+        ],
+        "include-url": [
+            {
+                "version": "1.1.0",
+                "url": "https://example/url.phar",
+                "signature": "https://example/url.phar.asc",
+                "requirements": {}
+            }
+        ]
+    }
+}

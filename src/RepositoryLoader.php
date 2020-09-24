@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition;
 
+use Phpcq\RepositoryDefinition\Exception\RuntimeException;
 use Phpcq\RepositoryDefinition\Plugin\PhpFilePluginVersion;
 use Phpcq\RepositoryDefinition\Plugin\Plugin;
 use Phpcq\RepositoryDefinition\Plugin\PluginHash;
@@ -13,9 +14,18 @@ use Phpcq\RepositoryDefinition\Tool\Tool;
 use Phpcq\RepositoryDefinition\Tool\ToolHash;
 use Phpcq\RepositoryDefinition\Tool\ToolRequirements;
 use Phpcq\RepositoryDefinition\Tool\ToolVersion;
-use RuntimeException;
 
+use function array_map;
 use function array_values;
+use function explode;
+use function filter_var;
+use function implode;
+use function is_file;
+use function parse_url;
+use function str_replace;
+
+use const FILTER_VALIDATE_URL;
+use const PHP_URL_PATH;
 
 /**
  * @psalm-import-type TRepositoryContents from JsonFileLoaderInterface
@@ -116,7 +126,7 @@ final class RepositoryLoader
         $contents = $this->fileLoader->load($fileName, $checksum);
         $baseDir  = dirname($fileName);
         if (isset($contents['tools'])) {
-            $this->walkTools($contents['tools']);
+            $this->walkTools($contents['tools'], $baseDir);
         }
         if (isset($contents['plugins'])) {
             $this->walkPlugins($contents['plugins'], $baseDir);
@@ -129,17 +139,17 @@ final class RepositoryLoader
     /**
      * @psalm-param array<string, TRepositoryTool> $tools
      */
-    private function walkTools(array $tools): void
+    private function walkTools(array $tools, string $baseDir): void
     {
         foreach ($tools as $toolName => $versions) {
-            $this->walkToolVersions($toolName, $versions);
+            $this->walkToolVersions($toolName, $versions, $baseDir);
         }
     }
 
     /**
      * @psalm-param list<TRepositoryToolVersion> $versions
      */
-    private function walkToolVersions(string $toolName, array $versions): void
+    private function walkToolVersions(string $toolName, array $versions, string $baseDir): void
     {
         if (!isset($this->tools[$toolName])) {
             $this->tools[$toolName] = new Tool($toolName);
@@ -148,10 +158,12 @@ final class RepositoryLoader
             $this->tools[$toolName]->addVersion(new ToolVersion(
                 $toolName,
                 $toolVersion['version'],
-                $toolVersion['url'],
+                $this->validateUrlOrFile($toolVersion['url'], $baseDir),
                 $this->loadToolRequirements($toolVersion['requirements']),
                 $this->loadToolHash($toolVersion['checksum'] ?? null),
-                $toolVersion['signature'] ?? null,
+                isset($toolVersion['signature'])
+                    ? $this->validateUrlOrFile($toolVersion['signature'], $baseDir)
+                    : null,
             ));
         }
     }
@@ -199,7 +211,7 @@ final class RepositoryLoader
     private function walkIncludeFiles(array $includes, string $baseDir): void
     {
         foreach ($includes as $include) {
-            $this->readFile($baseDir . '/' . $include['url'], $include['checksum'] ?? null);
+            $this->readFile($this->validateUrlOrFile($include['url'], $baseDir), $include['checksum'] ?? null);
         }
     }
 
@@ -214,8 +226,10 @@ final class RepositoryLoader
                     $information['version'],
                     $information['api-version'],
                     $this->loadPluginRequirements($information['requirements'] ?? []),
-                    $baseDir . '/' . $information['url'],
-                    $information['signature'] ?? null,
+                    $this->validateUrlOrFile($information['url'], $baseDir),
+                    isset($information['signature'])
+                        ? $this->validateUrlOrFile($information['signature'], $baseDir)
+                        : null,
                     $this->loadPluginHash($information['checksum'])
                 );
         }
@@ -275,5 +289,31 @@ final class RepositoryLoader
         }
 
         return $result;
+    }
+
+    private function validateUrlOrFile(string $url, string $baseDir): string
+    {
+        // Local absolute path?
+        if (is_file($url)) {
+            return $url;
+        }
+        // Local relative path?
+        if ('' !== $baseDir && is_file($baseDir . '/' . $url)) {
+            return $baseDir . '/' . $url;
+        }
+        // Perform URL check.
+        $path        = parse_url($url, PHP_URL_PATH);
+        $encodedPath = array_map('urlencode', explode('/', $path));
+        $newUrl      = str_replace($path, implode('/', $encodedPath), $url);
+        if (filter_var($newUrl, FILTER_VALIDATE_URL)) {
+            return $newUrl;
+        }
+        $newUrl = $baseDir . '/' . $newUrl;
+        if (filter_var($newUrl, FILTER_VALIDATE_URL)) {
+            return $newUrl;
+        }
+
+        // Did not understand.
+        throw new RuntimeException('Invalid URI passed: ' . $url);
     }
 }

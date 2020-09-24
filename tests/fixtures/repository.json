@@ -1,0 +1,74 @@
+{
+    "includes": [
+        {
+            "url": "http://example.org/repositories/include.json",
+            "checksum": {
+                "type": "sha-512",
+                "value": "9a57a8988033dba9728d2801153b3e9457e41aab5fa9045523bd3af8892f22991fb54aa4750a6db5b329a117090ff3d2810c9a54c70ea11971497e08aa64c592"
+            }
+        },
+        {
+            "url": "./includes/include.json",
+            "checksum": {
+                "type": "sha-512",
+                "value": "9a57a8988033dba9728d2801153b3e9457e41aab5fa9045523bd3af8892f22991fb54aa4750a6db5b329a117090ff3d2810c9a54c70ea11971497e08aa64c592"
+            }
+        }
+    ],
+    "plugins": {
+        "relative": [
+            {
+                "api-version": "1.0.0",
+                "version": "1.0.0",
+                "type": "php-file",
+                "url": "relative-plugin.php",
+                "signature": "relative-plugin.php.asc",
+                "requirements": {
+                    "tool": {
+                        "relative": "^3.0 || ^2.0"
+                    }
+                },
+                "checksum": {
+                    "type": "sha-512",
+                    "value": "13dc70e64f48409a145bf7ca2b3bb47414afadca416b050f05e2e4b9898fd417f99507acd519f6e9501fc89d1e5946037ad9ec5ab83e7c697110f14a2bbba986"
+                }
+            }
+        ],
+        "url": [
+            {
+                "api-version": "1.0.0",
+                "version": "1.0.0",
+                "type": "php-file",
+                "url": "https://example.org/plugin-1.0.0.php",
+                "signature": "https://example.org/plugin-1.0.0.php.asc",
+                "requirements": {
+                    "tool": {
+                        "url": "^3.0 || ^2.0"
+                    }
+                },
+                "checksum": {
+                    "type": "sha-512",
+                    "value": "13dc70e64f48409a145bf7ca2b3bb47414afadca416b050f05e2e4b9898fd417f99507acd519f6e9501fc89d1e5946037ad9ec5ab83e7c697110f14a2bbba986"
+                }
+            }
+        ]
+    },
+    "tools": {
+        "relative": [
+            {
+                "version": "1.0.0",
+                "url": "relative-tool.phar",
+                "signature": "relative-tool.phar.asc",
+                "requirements": {}
+            }
+        ],
+        "url": [
+            {
+                "version": "1.0.0",
+                "url": "https://example.org/url.phar",
+                "signature": "https://example.org/url.phar.asc",
+                "requirements": {}
+            }
+        ]
+    }
+}
