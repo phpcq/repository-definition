@@ -41,4 +41,48 @@ class ToolHashTest extends TestCase
 
         ToolHash::create('unknown-type', 'hash-value');
     }
+
+    public function equalsProvider(): array
+    {
+        return [
+            'equals with identical type and value' => [
+                'expected'  => true,
+                'left_type' => ToolHash::SHA_1,
+                'left_value' => 'content',
+                'right_type' => ToolHash::SHA_1,
+                'right_value' => 'content'
+            ],
+            'does not equal with identical type but different value' => [
+                'expected'  => false,
+                'left_type' => ToolHash::SHA_1,
+                'left_value' => 'content',
+                'right_type' => ToolHash::SHA_1,
+                'right_value' => 'bar'
+            ],
+            'does not equal with different type but identical value' => [
+                'expected'  => false,
+                'left_type' => ToolHash::SHA_1,
+                'left_value' => 'content',
+                'right_type' => ToolHash::SHA_256,
+                'right_value' => 'bar'
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider equalsProvider
+     */
+    public function testEquals(
+        bool $expected,
+        string $leftType,
+        string $leftValue,
+        string $rightType,
+        string $rightValue
+    ): void {
+        $left = ToolHash::create($leftType, $leftValue);
+        $right = ToolHash::create($rightType, $rightValue);
+
+        $this->assertEquals($expected, $left->equals($right));
+        $this->assertEquals($expected, $right->equals($left));
+    }
 }
