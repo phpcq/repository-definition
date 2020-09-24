@@ -216,7 +216,7 @@ final class RepositoryLoader
                     $this->loadPluginRequirements($information['requirements'] ?? []),
                     $baseDir . '/' . $information['url'],
                     $information['signature'] ?? null,
-                    $this->loadPluginHash($information['checksum'] ?? null)
+                    $this->loadPluginHash($information['checksum'])
                 );
         }
 
@@ -224,14 +224,10 @@ final class RepositoryLoader
     }
 
     /**
-     * @psalm-param TRepositoryCheckSum|null $hash
+     * @psalm-param TRepositoryCheckSum $hash
      */
-    private function loadPluginHash(?array $hash): ?PluginHash
+    private function loadPluginHash(array $hash): PluginHash
     {
-        if (null === $hash) {
-            return null;
-        }
-
         return PluginHash::create($hash['type'], $hash['value']);
     }
 

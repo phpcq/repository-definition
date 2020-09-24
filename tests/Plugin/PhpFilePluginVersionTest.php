@@ -24,14 +24,14 @@ class PhpFilePluginVersionTest extends TestCase
             '1.0.0',
             $requirements = new PluginRequirements(),
             __FILE__,
-            null
+            null,
+            PluginHash::create(PluginHash::SHA_512, 'hashy-corp')
         );
         $this->assertSame('plugin-a', $instance->getName());
         $this->assertSame('2.0.0', $instance->getVersion());
         $this->assertSame('1.0.0', $instance->getApiVersion());
         $this->assertSame($requirements, $instance->getRequirements());
-        $this->assertSame(file_get_contents(__FILE__), $instance->getCode());
-        $this->assertNull($instance->getSignature());
+        $this->assertNull($instance->getSignaturePath());
         $this->assertSame(__FILE__, $instance->getFilePath());
         $this->assertInstanceOf(PluginHash::class, $instance->getHash());
     }
@@ -45,9 +45,10 @@ class PhpFilePluginVersionTest extends TestCase
             new PluginRequirements(),
             __FILE__,
             __FILE__,
+            PluginHash::create(PluginHash::SHA_512, 'hashy-corp')
         );
 
-        $this->assertSame(file_get_contents(__FILE__), $instance->getSignature());
+        $this->assertSame(__FILE__, $instance->getSignaturePath());
     }
 
     public function testThrowsForInvalidVersion(): void
@@ -60,7 +61,8 @@ class PhpFilePluginVersionTest extends TestCase
             '11.0.0',
             new PluginRequirements(),
             __FILE__,
-            null
+            null,
+            PluginHash::create(PluginHash::SHA_512, 'hashy-corp')
         );
     }
 }

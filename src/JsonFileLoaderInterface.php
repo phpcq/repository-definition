@@ -38,8 +38,7 @@ use Phpcq\RepositoryDefinition\Exception\JsonFileNotFoundException;
  *   api-version: string,
  *   requirements?: TRepositoryPluginRequirements,
  *   url?: string,
- *   code?: string,
- *   checksum?: TRepositoryCheckSum,
+ *   checksum: TRepositoryCheckSum,
  *   signature?: string,
  * }
  * @psalm-type TRepositoryInclude = array{

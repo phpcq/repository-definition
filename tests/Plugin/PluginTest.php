@@ -87,7 +87,9 @@ class PluginTest extends TestCase
                 $version,
                 $apiVersion,
                 null,
-                $hash ?? PluginHash::create(PluginHash::SHA_512, 'hashy-corp')
+                '/path/to/plugin',
+                null,
+                $hash ?? PluginHash::create(PluginHash::SHA_512, 'hashy-corp'),
             ]
         );
     }

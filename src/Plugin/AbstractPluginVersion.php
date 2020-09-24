@@ -25,21 +25,31 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
     /** @var PluginRequirements */
     private $requirements;
 
+    /** @var string */
+    private $filePath;
+
+    /** @var string|null */
+    private $signaturePath;
+
     public function __construct(
         string $name,
         string $version,
         string $apiVersion,
         ?PluginRequirements $requirements,
+        string $filePath,
+        ?string $signaturePath = null,
         PluginHash $hash
     ) {
         if ($apiVersion !== '1.0.0') {
             throw new RuntimeException('Invalid version string: ' . $apiVersion);
         }
-        $this->name         = $name;
-        $this->version      = $version;
-        $this->apiVersion   = $apiVersion;
-        $this->hash         = $hash;
-        $this->requirements = $requirements ?? new PluginRequirements();
+        $this->name          = $name;
+        $this->version       = $version;
+        $this->apiVersion    = $apiVersion;
+        $this->hash          = $hash;
+        $this->filePath      = $filePath;
+        $this->signaturePath = $signaturePath;
+        $this->requirements  = $requirements ?? new PluginRequirements();
     }
 
     public function getApiVersion(): string
@@ -65,6 +75,16 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
     public function getRequirements(): PluginRequirements
     {
         return $this->requirements;
+    }
+
+    public function getFilePath(): string
+    {
+        return $this->filePath;
+    }
+
+    public function getSignaturePath(): ?string
+    {
+        return $this->signaturePath;
     }
 
     public function merge(PluginVersionInterface $other): void
