@@ -19,6 +19,9 @@ final class FileGetContentsJsonFileLoader implements JsonFileLoaderInterface
 {
     public function load(string $file, ?array $checksum = null): array
     {
+        if (!file_exists($file)) {
+            throw new JsonFileNotFoundException('File not found: ' . $file);
+        }
         $data = file_get_contents($file);
         if (false === $data) {
             throw new JsonFileNotFoundException('Failed to load file: ' . $file);
