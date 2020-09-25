@@ -81,11 +81,6 @@ tasks:
       #  names:
       names_exclude:
         # These are duplicate code but entirely unrelated to each other.
-        - DiffBuilderTest.php
-        - AttachmentBuilderTest.php
-        - OptionsBuilderTest.php
-        - PluginConfigurationBuilderTest.php
-        - UpdateCalculatorTest.php
     #  regexps_exclude:
     #  log:
     #  min_lines:

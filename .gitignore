@@ -20,3 +20,7 @@ vendor/
 
 # phpunit releated
 .phpunit.result.cache
+
+# phpcq related
+.phpcq
+.phpcq.yaml

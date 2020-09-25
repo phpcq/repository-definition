@@ -30,7 +30,7 @@ class ToolVersionTest extends TestCase
     public function testInitializesWithAllValues(): void
     {
         $requirements = new ToolRequirements();
-        $requirements->getPhpRequirements()->add($requirement1 = new VersionRequirement('test1'));
+        $requirements->getPhpRequirements()->add(new VersionRequirement('test1'));
 
         $version = new ToolVersion(
             'supertool',
