@@ -15,7 +15,7 @@ use Traversable;
  *
  * @template-implements IteratorAggregate<int, PluginVersionInterface>
  */
-class Plugin implements PluginInterface, IteratorAggregate
+class Plugin implements IteratorAggregate, PluginInterface
 {
     /**
      * The name of the plugin.
