@@ -19,9 +19,6 @@ phpcq:
     phpmd:
       version: ^1.0
       signed: false
-      requirements:
-        phpmd:
-          signed: false
     phpcpd:
       version: ^1.0
       signed: false
@@ -48,6 +45,8 @@ phpcq:
     - 31C7E470E2138192
     # Composer normalize
     - C00543248C87FB13
+    # phpmd
+    - 0F9684B8B16B7AB0
 
   chains:
     fix:
