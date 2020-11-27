@@ -13,7 +13,7 @@ use Traversable;
 /**
  * This holds all versions of a tool.
  */
-class Tool implements ToolInterface, IteratorAggregate
+class Tool implements IteratorAggregate, ToolInterface
 {
     /**
      * The name of the tool.
