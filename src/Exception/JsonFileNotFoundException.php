@@ -6,5 +6,4 @@ namespace Phpcq\RepositoryDefinition\Exception;
 
 final class JsonFileNotFoundException extends RuntimeException
 {
-
 }

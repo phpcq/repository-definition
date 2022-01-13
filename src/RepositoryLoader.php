@@ -113,9 +113,7 @@ final class RepositoryLoader
         $instance = new RepositoryLoader($fileLoader);
         $instance->readFile($fileName, $checksum);
 
-        /** @psalm-var list<Tool> $tools */
         $tools = array_values($instance->tools);
-        /** @psalm-var list<Plugin> $plugins */
         $plugins = array_values($instance->plugins);
 
         if (empty($tools) && empty($plugins)) {

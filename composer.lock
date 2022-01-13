@@ -4,12 +4,77 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7907b5896048654eaae5d22a782e06f",
+    "content-hash": "92c88681e5ad0863ae1392b65003b537",
     "packages": [],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "phpcq/runner-bootstrap",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpcq/runner-bootstrap.git",
+                "reference": "f0664b84c7324e2d41d653939ad3bf4f97aaf06f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpcq/runner-bootstrap/zipball/f0664b84c7324e2d41d653939ad3bf4f97aaf06f",
+                "reference": "f0664b84c7324e2d41d653939ad3bf4f97aaf06f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0"
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/phpcq"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Schiffler",
+                    "email": "c.schiffler@cyberspectrum.de",
+                    "homepage": "http://cyberspectrum.de",
+                    "role": "lead"
+                },
+                {
+                    "name": "David Molineus",
+                    "email": "david.molineus@netzmacht.de",
+                    "homepage": "https://netzmacht.de",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP code quality composer plugin.",
+            "support": {
+                "issues": "https://github.com/phpcq/runner-bootstrap/issues",
+                "source": "https://github.com/phpcq/runner-bootstrap/tree/master"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/discordier",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/dmolineus",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-08T18:33:27+00:00"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "phpcq/runner-bootstrap": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -19,5 +84,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.2.0"
 }
