@@ -37,7 +37,7 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
         string $apiVersion,
         ?PluginRequirements $requirements,
         string $filePath,
-        ?string $signaturePath = null,
+        ?string $signaturePath,
         PluginHash $hash
     ) {
         if ($apiVersion !== '1.0.0') {

@@ -59,7 +59,7 @@ class VersionRequirementList implements IteratorAggregate
      * @return Generator|Traversable|VersionRequirement[]
      * @psalm-return Generator<VersionRequirement>
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         foreach ($this->requirements as $requirement) {
             yield $requirement;
