@@ -86,7 +86,7 @@ class Plugin implements IteratorAggregate, PluginInterface
      *
      * @psalm-return Generator<PluginVersionInterface>
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         foreach ($this->versions as $version) {
             yield $version;

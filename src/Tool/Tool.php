@@ -84,7 +84,7 @@ class Tool implements IteratorAggregate, ToolInterface
      *
      * @psalm-return Generator<ToolVersionInterface>
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         foreach ($this->versions as $version) {
             yield $version;
