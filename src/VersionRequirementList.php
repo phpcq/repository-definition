@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition;
 
-use Generator;
 use IteratorAggregate;
 use LogicException;
 use Traversable;
@@ -56,8 +55,7 @@ class VersionRequirementList implements IteratorAggregate
     }
 
     /**
-     * @return Generator|Traversable|VersionRequirement[]
-     * @psalm-return Generator<VersionRequirement>
+     * @return Traversable<int, VersionRequirement>
      */
     public function getIterator(): Traversable
     {

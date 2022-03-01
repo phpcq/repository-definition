@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition\Tool;
 
-use Generator;
 use InvalidArgumentException;
 use IteratorAggregate;
 use LogicException;
@@ -12,6 +11,8 @@ use Traversable;
 
 /**
  * This holds all versions of a tool.
+ *
+ * @template-implements IteratorAggregate<int, ToolVersionInterface>
  */
 class Tool implements IteratorAggregate, ToolInterface
 {
@@ -80,11 +81,9 @@ class Tool implements IteratorAggregate, ToolInterface
     /**
      * Iterate over all versions.
      *
-     * @return Generator|Traversable|ToolVersionInterface[]
-     *
-     * @psalm-return Generator<ToolVersionInterface>
+     * @return Traversable<int, ToolVersionInterface>
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         foreach ($this->versions as $version) {
             yield $version;
