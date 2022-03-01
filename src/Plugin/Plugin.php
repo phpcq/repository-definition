@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition\Plugin;
 
-use Generator;
 use InvalidArgumentException;
 use IteratorAggregate;
 use LogicException;
@@ -82,9 +81,7 @@ class Plugin implements IteratorAggregate, PluginInterface
     /**
      * Iterate over all versions.
      *
-     * @return Generator|Traversable|PluginVersionInterface[]
-     *
-     * @psalm-return Generator<PluginVersionInterface>
+     * @return Traversable<int, PluginVersionInterface>
      */
     public function getIterator(): Traversable
     {
