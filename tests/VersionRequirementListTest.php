@@ -68,4 +68,13 @@ class VersionRequirementListTest extends TestCase
 
         $requirements->get('test');
     }
+
+    public function testCountRequirements(): void
+    {
+        $requirement1 = new VersionRequirement('test1');
+        $requirement2 = new VersionRequirement('test2');
+        $requirements = new VersionRequirementList([$requirement1, $requirement2]);
+
+        self::assertCount(2, $requirements);
+    }
 }

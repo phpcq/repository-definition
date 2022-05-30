@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition;
 
+use Countable;
 use IteratorAggregate;
 use LogicException;
 use Traversable;
@@ -11,7 +12,7 @@ use Traversable;
 /**
  * @template-implements IteratorAggregate<int, VersionRequirement>
  */
-class VersionRequirementList implements IteratorAggregate
+class VersionRequirementList implements IteratorAggregate, Countable
 {
     /**
      * @var VersionRequirement[]
@@ -52,6 +53,11 @@ class VersionRequirementList implements IteratorAggregate
     public function has(string $name): bool
     {
         return isset($this->requirements[$name]);
+    }
+
+    public function count(): int
+    {
+        return count($this->requirements);
     }
 
     /**
