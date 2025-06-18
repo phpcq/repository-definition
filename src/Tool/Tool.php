@@ -7,6 +7,7 @@ namespace Phpcq\RepositoryDefinition\Tool;
 use InvalidArgumentException;
 use IteratorAggregate;
 use LogicException;
+use Override;
 use Traversable;
 
 /**
@@ -43,11 +44,13 @@ class Tool implements IteratorAggregate, ToolInterface
     /**
      * Retrieve name.
      */
+    #[Override]
     public function getName(): string
     {
         return $this->name;
     }
 
+    #[Override]
     public function addVersion(ToolVersionInterface $version): void
     {
         if ($version->getName() !== $this->name) {
@@ -60,6 +63,7 @@ class Tool implements IteratorAggregate, ToolInterface
         $this->versions[$version->getVersion()] = $version;
     }
 
+    #[Override]
     public function getVersion(string $version): ToolVersionInterface
     {
         if (!$this->has($version)) {
@@ -68,11 +72,13 @@ class Tool implements IteratorAggregate, ToolInterface
         return $this->versions[$version];
     }
 
+    #[Override]
     public function has(string $version): bool
     {
         return isset($this->versions[$version]);
     }
 
+    #[Override]
     public function isEmpty(): bool
     {
         return empty($this->versions);
@@ -83,6 +89,7 @@ class Tool implements IteratorAggregate, ToolInterface
      *
      * @return Traversable<int, ToolVersionInterface>
      */
+    #[Override]
     public function getIterator(): Traversable
     {
         foreach ($this->versions as $version) {

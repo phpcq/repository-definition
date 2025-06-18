@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpcq\RepositoryDefinition;
 
 use Generator;
+use Override;
 use Phpcq\RepositoryDefinition\Exception\PluginNotFoundException;
 use Phpcq\RepositoryDefinition\Exception\ToolNotFoundException;
 use Phpcq\RepositoryDefinition\Plugin\PluginInterface;
@@ -18,11 +19,13 @@ class Repository implements RepositoryInterface
     /** @var PluginInterface[] */
     private $plugins = [];
 
+    #[Override]
     public function hasTool(string $name): bool
     {
         return isset($this->tools[$name]);
     }
 
+    #[Override]
     public function addTool(ToolInterface $tool): void
     {
         if ($this->hasTool($tool->getName())) {
@@ -32,6 +35,7 @@ class Repository implements RepositoryInterface
         $this->tools[$tool->getName()] = $tool;
     }
 
+    #[Override]
     public function getTool(string $name): ToolInterface
     {
         if (!isset($this->tools[$name])) {
@@ -41,11 +45,13 @@ class Repository implements RepositoryInterface
         return $this->tools[$name];
     }
 
+    #[Override]
     public function hasPlugin(string $name): bool
     {
         return isset($this->plugins[$name]);
     }
 
+    #[Override]
     public function addPlugin(PluginInterface $plugin): void
     {
         if ($this->hasPlugin($plugin->getName())) {
@@ -55,6 +61,7 @@ class Repository implements RepositoryInterface
         $this->plugins[$plugin->getName()] = $plugin;
     }
 
+    #[Override]
     public function getPlugin(string $name): PluginInterface
     {
         if (!isset($this->plugins[$name])) {
@@ -71,6 +78,7 @@ class Repository implements RepositoryInterface
      *
      * @psalm-return Generator<ToolInterface>
      */
+    #[Override]
     public function iterateTools(): Generator
     {
         foreach ($this->tools as $tool) {
@@ -85,6 +93,7 @@ class Repository implements RepositoryInterface
      *
      * @psalm-return Generator<PluginInterface>
      */
+    #[Override]
     public function iteratePlugins(): Generator
     {
         foreach ($this->plugins as $plugin) {

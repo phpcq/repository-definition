@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition\Tool;
 
+use Override;
 use Phpcq\RepositoryDefinition\VersionRequirement;
 use Phpcq\RepositoryDefinition\VersionRequirementList;
 
@@ -43,31 +44,37 @@ class ToolVersion implements ToolVersionInterface
         $this->requirements = $requirements ?? new ToolRequirements();
     }
 
+    #[Override]
     public function getName(): string
     {
         return $this->name;
     }
 
+    #[Override]
     public function getVersion(): string
     {
         return $this->version;
     }
 
+    #[Override]
     public function getPharUrl(): ?string
     {
         return $this->pharUrl;
     }
 
+    #[Override]
     public function getHash(): ?ToolHash
     {
         return $this->hash;
     }
 
+    #[Override]
     public function getSignatureUrl(): ?string
     {
         return $this->signatureUrl;
     }
 
+    #[Override]
     public function getRequirements(): ToolRequirements
     {
         return $this->requirements;
@@ -77,6 +84,7 @@ class ToolVersion implements ToolVersionInterface
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
+    #[Override]
     public function merge(ToolVersionInterface $other): void
     {
         if (null !== ($data = $other->getPharUrl()) && $data !== $this->pharUrl) {

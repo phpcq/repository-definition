@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition;
 
+use Override;
 use Phpcq\RepositoryDefinition\Exception\InvalidHashException;
 use Phpcq\RepositoryDefinition\Exception\JsonFileNotFoundException;
 
@@ -17,6 +18,7 @@ use const JSON_THROW_ON_ERROR;
  */
 final class FileGetContentsJsonFileLoader implements JsonFileLoaderInterface
 {
+    #[Override]
     public function load(string $file, ?array $checksum = null): array
     {
         if (!file_exists($file)) {

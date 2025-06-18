@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition\Plugin;
 
+use Override;
 use Phpcq\RepositoryDefinition\VersionRequirement;
 use Phpcq\RepositoryDefinition\VersionRequirementList;
 use RuntimeException;
@@ -52,41 +53,49 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
         $this->requirements  = $requirements ?? new PluginRequirements();
     }
 
+    #[Override]
     public function getApiVersion(): string
     {
         return '1.0.0';
     }
 
+    #[Override]
     public function getName(): string
     {
         return $this->name;
     }
 
+    #[Override]
     public function getVersion(): string
     {
         return $this->version;
     }
 
+    #[Override]
     public function getHash(): PluginHash
     {
         return $this->hash;
     }
 
+    #[Override]
     public function getRequirements(): PluginRequirements
     {
         return $this->requirements;
     }
 
+    #[Override]
     public function getFilePath(): string
     {
         return $this->filePath;
     }
 
+    #[Override]
     public function getSignaturePath(): ?string
     {
         return $this->signaturePath;
     }
 
+    #[Override]
     public function merge(PluginVersionInterface $other): void
     {
         $otherRequirements = $other->getRequirements();

@@ -7,6 +7,7 @@ namespace Phpcq\RepositoryDefinition;
 use Countable;
 use IteratorAggregate;
 use LogicException;
+use Override;
 use Traversable;
 
 /**
@@ -55,6 +56,7 @@ class VersionRequirementList implements IteratorAggregate, Countable
         return isset($this->requirements[$name]);
     }
 
+    #[Override]
     public function count(): int
     {
         return count($this->requirements);
@@ -63,6 +65,7 @@ class VersionRequirementList implements IteratorAggregate, Countable
     /**
      * @return Traversable<int, VersionRequirement>
      */
+    #[Override]
     public function getIterator(): Traversable
     {
         foreach ($this->requirements as $requirement) {
