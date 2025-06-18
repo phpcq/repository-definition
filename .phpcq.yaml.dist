@@ -46,8 +46,11 @@ phpcq:
     - D2CCAC42F6295E7D
     # PHP_CodeSniffer
     - 31C7E470E2138192
+    - 97B02DD8E5071466
     # Composer normalize
     - C00543248C87FB13
+    # PHPMD
+    - 9093F8B32E4815AA
 
 tasks:
   fix:
