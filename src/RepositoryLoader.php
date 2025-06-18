@@ -130,7 +130,7 @@ final class RepositoryLoader
     public static function loadRepository(
         string $fileName,
         ?array $checksum = null,
-        JsonFileLoaderInterface $fileLoader = null
+        ?JsonFileLoaderInterface $fileLoader = null
     ): Repository {
         $repository = new Repository();
         $data       = self::loadData($fileName, $checksum, $fileLoader);

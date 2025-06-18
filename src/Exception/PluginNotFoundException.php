@@ -13,7 +13,7 @@ final class PluginNotFoundException extends RuntimeException
      */
     private $plugin;
 
-    public function __construct(string $plugin, int $code = 0, Throwable $previous = null)
+    public function __construct(string $plugin, int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct(sprintf('Plugin "%s" not found', $plugin), $code, $previous);
 
