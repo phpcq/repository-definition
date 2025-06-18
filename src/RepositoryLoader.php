@@ -283,7 +283,7 @@ final class RepositoryLoader
     private function loadToolRequirements(?array $requirements): ToolRequirements
     {
         $result = new ToolRequirements();
-        if (empty($requirements)) {
+        if ($requirements === null || $requirements === []) {
             return $result;
         }
 
@@ -305,7 +305,7 @@ final class RepositoryLoader
     private function loadPluginRequirements(?array $requirements): PluginRequirements
     {
         $result = new PluginRequirements();
-        if (empty($requirements)) {
+        if ($requirements === null || $requirements === []) {
             return $result;
         }
 
@@ -336,7 +336,7 @@ final class RepositoryLoader
             return $baseDir . '/' . $url;
         }
         // Perform URL check.
-        $path        = parse_url($url, PHP_URL_PATH);
+        $path        = (string) parse_url($url, PHP_URL_PATH);
         $encodedPath = array_map('urlencode', explode('/', $path));
         $newUrl      = str_replace($path, implode('/', $encodedPath), $url);
         if (filter_var($newUrl, FILTER_VALIDATE_URL)) {
