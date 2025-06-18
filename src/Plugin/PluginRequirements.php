@@ -10,31 +10,23 @@ class PluginRequirements
 {
     /**
      * Platform requirements.
-     *
-     * @var VersionRequirementList
      */
-    private $phpRequirements;
+    private VersionRequirementList $phpRequirements;
 
     /**
      * Required tools.
-     *
-     * @var VersionRequirementList
      */
-    private $toolRequirements;
+    private VersionRequirementList $toolRequirements;
 
     /**
      * Required peer plugins.
-     *
-     * @var VersionRequirementList
      */
-    private $pluginRequirements;
+    private VersionRequirementList $pluginRequirements;
 
     /**
      * Required composer libraries.
-     *
-     * @var VersionRequirementList
      */
-    private $composerRequirements;
+    private VersionRequirementList $composerRequirements;
 
     /**
      * Create a new instance.

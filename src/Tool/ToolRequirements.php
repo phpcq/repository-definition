@@ -10,17 +10,13 @@ class ToolRequirements
 {
     /**
      * Platform requirements.
-     *
-     * @var VersionRequirementList
      */
-    private $phpRequirements;
+    private VersionRequirementList $phpRequirements;
 
     /**
      * Required composer libraries.
-     *
-     * @var VersionRequirementList
      */
-    private $composerRequirements;
+    private VersionRequirementList $composerRequirements;
 
     /**
      * Create a new instance.

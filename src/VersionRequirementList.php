@@ -18,7 +18,7 @@ class VersionRequirementList implements IteratorAggregate, Countable
     /**
      * @var VersionRequirement[]
      */
-    private $requirements = [];
+    private array $requirements = [];
 
     /**
      * Create a new instance.

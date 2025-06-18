@@ -77,13 +77,12 @@ use const PHP_URL_PATH;
 final class RepositoryLoader
 {
     /** @psalm-var array<string, Tool> */
-    private $tools = [];
+    private array $tools = [];
 
     /** @psalm-var array<string, Plugin> */
-    private $plugins = [];
+    private array $plugins = [];
 
-    /** @var JsonFileLoaderInterface */
-    private $fileLoader;
+    private JsonFileLoaderInterface $fileLoader;
 
     /**
      * @psalm-param TRepositoryCheckSum|null $checksum
@@ -130,7 +129,7 @@ final class RepositoryLoader
     public static function loadRepository(
         string $fileName,
         ?array $checksum = null,
-        ?JsonFileLoaderInterface $fileLoader = null
+        JsonFileLoaderInterface $fileLoader = null
     ): Repository {
         $repository = new Repository();
         $data       = self::loadData($fileName, $checksum, $fileLoader);

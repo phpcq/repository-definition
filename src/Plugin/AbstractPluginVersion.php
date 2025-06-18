@@ -11,26 +11,19 @@ use RuntimeException;
 
 abstract class AbstractPluginVersion implements PluginVersionInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var string */
-    private $apiVersion;
+    private string $apiVersion;
 
-    /** @var PluginHash */
-    private $hash;
+    private PluginHash $hash;
 
-    /** @var PluginRequirements */
-    private $requirements;
+    private PluginRequirements $requirements;
 
-    /** @var string */
-    private $filePath;
+    private string $filePath;
 
-    /** @var string|null */
-    private $signaturePath;
+    private ?string $signaturePath;
 
     public function __construct(
         string $name,
@@ -56,7 +49,7 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
     #[Override]
     public function getApiVersion(): string
     {
-        return '1.0.0';
+        return $this->apiVersion;
     }
 
     #[Override]

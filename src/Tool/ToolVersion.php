@@ -10,23 +10,17 @@ use Phpcq\RepositoryDefinition\VersionRequirementList;
 
 class ToolVersion implements ToolVersionInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var ?string */
-    private $pharUrl;
+    private ?string $pharUrl;
 
-    /** @var ?string */
-    private $signatureUrl;
+    private ?string $signatureUrl;
 
-    /** @var ToolHash|null */
-    private $hash;
+    private ?ToolHash $hash;
 
-    /** @var ToolRequirements */
-    private $requirements;
+    private ToolRequirements $requirements;
 
     public function __construct(
         string $name,

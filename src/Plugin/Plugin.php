@@ -19,17 +19,15 @@ class Plugin implements IteratorAggregate, PluginInterface
 {
     /**
      * The name of the plugin.
-     *
-     * @var string
      */
-    private $name;
+    private string $name;
 
     /**
      * All versions of the plugin.
      *
      * @var PluginVersionInterface[]
      */
-    private $versions = [];
+    private array $versions = [];
 
     /**
      * Create a new instance.
