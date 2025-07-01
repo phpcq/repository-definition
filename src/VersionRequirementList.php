@@ -16,14 +16,14 @@ use Traversable;
 class VersionRequirementList implements IteratorAggregate, Countable
 {
     /**
-     * @var VersionRequirement[]
+     * @var array<string, VersionRequirement>
      */
     private array $requirements = [];
 
     /**
      * Create a new instance.
      *
-     * @param VersionRequirement[] $requirements
+     * @param array<string, VersionRequirement> $requirements
      */
     public function __construct(array $requirements = [])
     {

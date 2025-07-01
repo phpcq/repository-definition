@@ -13,10 +13,10 @@ use Phpcq\RepositoryDefinition\Tool\ToolInterface;
 
 class Repository implements RepositoryInterface
 {
-    /** @var ToolInterface[] */
+    /** @var array<string, ToolInterface> */
     private array $tools = [];
 
-    /** @var PluginInterface[] */
+    /** @var array<string, PluginInterface> */
     private array $plugins = [];
 
     #[Override]

@@ -25,7 +25,7 @@ class Tool implements IteratorAggregate, ToolInterface
     /**
      * All versions of the tool.
      *
-     * @var ToolVersionInterface[]
+     * @var array<string, ToolVersionInterface>
      */
     private array $versions = [];
 

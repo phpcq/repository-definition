@@ -104,7 +104,7 @@ class ToolVersion implements ToolVersionInterface
                 [$this->requirements->getComposerRequirements(), $otherRequirements->getComposerRequirements()],
             ] as $lists
         ) {
-            /** @var VersionRequirementList[] $lists */
+            /** @var array{0: VersionRequirementList, 1: VersionRequirementList} $lists */
             $target = $lists[0];
             $source = $lists[1];
             foreach ($source as $requirement) {
