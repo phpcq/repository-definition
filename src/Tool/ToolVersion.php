@@ -4,28 +4,23 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition\Tool;
 
+use Override;
 use Phpcq\RepositoryDefinition\VersionRequirement;
 use Phpcq\RepositoryDefinition\VersionRequirementList;
 
 class ToolVersion implements ToolVersionInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var ?string */
-    private $pharUrl;
+    private ?string $pharUrl;
 
-    /** @var ?string */
-    private $signatureUrl;
+    private ?string $signatureUrl;
 
-    /** @var ToolHash|null */
-    private $hash;
+    private ?ToolHash $hash;
 
-    /** @var ToolRequirements */
-    private $requirements;
+    private ToolRequirements $requirements;
 
     public function __construct(
         string $name,
@@ -43,31 +38,37 @@ class ToolVersion implements ToolVersionInterface
         $this->requirements = $requirements ?? new ToolRequirements();
     }
 
+    #[Override]
     public function getName(): string
     {
         return $this->name;
     }
 
+    #[Override]
     public function getVersion(): string
     {
         return $this->version;
     }
 
+    #[Override]
     public function getPharUrl(): ?string
     {
         return $this->pharUrl;
     }
 
+    #[Override]
     public function getHash(): ?ToolHash
     {
         return $this->hash;
     }
 
+    #[Override]
     public function getSignatureUrl(): ?string
     {
         return $this->signatureUrl;
     }
 
+    #[Override]
     public function getRequirements(): ToolRequirements
     {
         return $this->requirements;
@@ -77,6 +78,7 @@ class ToolVersion implements ToolVersionInterface
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
+    #[Override]
     public function merge(ToolVersionInterface $other): void
     {
         if (null !== ($data = $other->getPharUrl()) && $data !== $this->pharUrl) {
@@ -102,7 +104,7 @@ class ToolVersion implements ToolVersionInterface
                 [$this->requirements->getComposerRequirements(), $otherRequirements->getComposerRequirements()],
             ] as $lists
         ) {
-            /** @var VersionRequirementList[] $lists */
+            /** @var array{0: VersionRequirementList, 1: VersionRequirementList} $lists */
             $target = $lists[0];
             $source = $lists[1];
             foreach ($source as $requirement) {

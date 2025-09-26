@@ -18,7 +18,7 @@ jobs:
       matrix:
         include:
           - php: '7.4'
-            phpcq_install: 'install'
+            phpcq_install: 'update'
             phpcq_flags: ''
           - php: '8.0'
             phpcq_install: 'update'
@@ -28,11 +28,16 @@ jobs:
             phpcq_flags: ''
           - php: '8.2'
             phpcq_install: 'update'
-            phpcq_flags: '--exit-0'
-
+            phpcq_flags: ''
+          - php: '8.3'
+            phpcq_install: 'update'
+            phpcq_flags: ''
+          - php: '8.4'
+            phpcq_install: 'update'
+            phpcq_flags: ''
     steps:
       - name: Pull source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
@@ -40,7 +45,7 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: Cache composer cache directory
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         env:
           cache-name: composer-cache-dir-${{ matrix.php }}
         with:
@@ -48,7 +53,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Cache phpcq directory
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         env:
           cache-name: phpcq-${{ matrix.php }}
         with:
@@ -58,7 +63,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Cache vendor directory
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         env:
           cache-name: vendor-${{ matrix.php }}
         with:
@@ -80,7 +85,7 @@ jobs:
         run: ./vendor/bin/phpcq run -o github-action -o default ${{ matrix.phpcq_flags }}
 
       - name: Upload build directory to artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ success() }} || ${{ failure() }}
         with:
           name: phpcq-builds-php-${{ matrix.php }}

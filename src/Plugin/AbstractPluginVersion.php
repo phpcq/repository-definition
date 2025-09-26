@@ -4,32 +4,26 @@ declare(strict_types=1);
 
 namespace Phpcq\RepositoryDefinition\Plugin;
 
+use Override;
 use Phpcq\RepositoryDefinition\VersionRequirement;
 use Phpcq\RepositoryDefinition\VersionRequirementList;
 use RuntimeException;
 
 abstract class AbstractPluginVersion implements PluginVersionInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $version;
+    private string $version;
 
-    /** @var string */
-    private $apiVersion;
+    private string $apiVersion;
 
-    /** @var PluginHash */
-    private $hash;
+    private PluginHash $hash;
 
-    /** @var PluginRequirements */
-    private $requirements;
+    private PluginRequirements $requirements;
 
-    /** @var string */
-    private $filePath;
+    private string $filePath;
 
-    /** @var string|null */
-    private $signaturePath;
+    private ?string $signaturePath;
 
     public function __construct(
         string $name,
@@ -52,41 +46,49 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
         $this->requirements  = $requirements ?? new PluginRequirements();
     }
 
+    #[Override]
     public function getApiVersion(): string
     {
-        return '1.0.0';
+        return $this->apiVersion;
     }
 
+    #[Override]
     public function getName(): string
     {
         return $this->name;
     }
 
+    #[Override]
     public function getVersion(): string
     {
         return $this->version;
     }
 
+    #[Override]
     public function getHash(): PluginHash
     {
         return $this->hash;
     }
 
+    #[Override]
     public function getRequirements(): PluginRequirements
     {
         return $this->requirements;
     }
 
+    #[Override]
     public function getFilePath(): string
     {
         return $this->filePath;
     }
 
+    #[Override]
     public function getSignaturePath(): ?string
     {
         return $this->signaturePath;
     }
 
+    #[Override]
     public function merge(PluginVersionInterface $other): void
     {
         $otherRequirements = $other->getRequirements();
@@ -98,7 +100,7 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
                 [$this->requirements->getComposerRequirements(), $otherRequirements->getComposerRequirements()],
             ] as $lists
         ) {
-            /** @var VersionRequirementList[] $lists */
+            /** @var array{0: VersionRequirementList, 1: VersionRequirementList} $lists */
             $target = $lists[0];
             $source = $lists[1];
             foreach ($source as $requirement) {

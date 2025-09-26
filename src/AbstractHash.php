@@ -60,13 +60,13 @@ abstract class AbstractHash
             self::SHA_512 => 'sha512',
         ];
 
-        return static::create($type, hash_file($hashMap[$type], $absolutePath));
+        return static::create($type, (string) hash_file($hashMap[$type], $absolutePath));
     }
 
     /** @return static */
     public static function createForString(string $contents, string $type = self::SHA_512): self
     {
-        return static::create($type, hash(self::HASHMAP[$type], $contents));
+        return static::create($type, (string) hash(self::HASHMAP[$type], $contents));
     }
 
     /**

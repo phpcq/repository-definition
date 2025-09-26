@@ -77,13 +77,12 @@ use const PHP_URL_PATH;
 final class RepositoryLoader
 {
     /** @psalm-var array<string, Tool> */
-    private $tools = [];
+    private array $tools = [];
 
     /** @psalm-var array<string, Plugin> */
-    private $plugins = [];
+    private array $plugins = [];
 
-    /** @var JsonFileLoaderInterface */
-    private $fileLoader;
+    private JsonFileLoaderInterface $fileLoader;
 
     /**
      * @psalm-param TRepositoryCheckSum|null $checksum
@@ -283,7 +282,7 @@ final class RepositoryLoader
     private function loadToolRequirements(?array $requirements): ToolRequirements
     {
         $result = new ToolRequirements();
-        if (empty($requirements)) {
+        if ($requirements === null || $requirements === []) {
             return $result;
         }
 
@@ -305,7 +304,7 @@ final class RepositoryLoader
     private function loadPluginRequirements(?array $requirements): PluginRequirements
     {
         $result = new PluginRequirements();
-        if (empty($requirements)) {
+        if ($requirements === null || $requirements === []) {
             return $result;
         }
 
@@ -336,7 +335,7 @@ final class RepositoryLoader
             return $baseDir . '/' . $url;
         }
         // Perform URL check.
-        $path        = parse_url($url, PHP_URL_PATH);
+        $path        = (string) parse_url($url, PHP_URL_PATH);
         $encodedPath = array_map('urlencode', explode('/', $path));
         $newUrl      = str_replace($path, implode('/', $encodedPath), $url);
         if (filter_var($newUrl, FILTER_VALIDATE_URL)) {
