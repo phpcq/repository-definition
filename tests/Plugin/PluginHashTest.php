@@ -46,24 +46,24 @@ class PluginHashTest extends TestCase
         return [
             'equals with identical type and value' => [
                 'expected'  => true,
-                'left_type' => PluginHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => PluginHash::SHA_1,
-                'right_value' => 'content'
+                'leftType' => PluginHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => PluginHash::SHA_1,
+                'rightValue' => 'content'
             ],
             'does not equal with identical type but different value' => [
                 'expected'  => false,
-                'left_type' => PluginHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => PluginHash::SHA_1,
-                'right_value' => 'bar'
+                'leftType' => PluginHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => PluginHash::SHA_1,
+                'rightValue' => 'bar'
             ],
             'does not equal with different type but identical value' => [
                 'expected'  => false,
-                'left_type' => PluginHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => PluginHash::SHA_256,
-                'right_value' => 'bar'
+                'leftType' => PluginHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => PluginHash::SHA_256,
+                'rightValue' => 'bar'
             ],
         ];
     }
