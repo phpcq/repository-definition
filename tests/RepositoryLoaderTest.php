@@ -89,7 +89,7 @@ final class RepositoryLoaderTest extends TestCase
 
     private function loadRepository(): RepositoryInterface
     {
-        $loader = $this->getMockForAbstractClass(JsonFileLoaderInterface::class);
+        $loader = $this->createMock(JsonFileLoaderInterface::class);
         $loader->method('load')->willReturnCallback(
             static function (string $url) {
                 switch ($url) {
