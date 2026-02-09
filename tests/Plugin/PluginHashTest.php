@@ -6,6 +6,7 @@ namespace Phpcq\RepositoryDefinition\Test\Plugin;
 
 use Phpcq\RepositoryDefinition\Exception\InvalidHashException;
 use Phpcq\RepositoryDefinition\Plugin\PluginHash;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PluginHashTest extends TestCase
 {
-    public function hashProvider(): array
+    public static function hashProvider(): array
     {
         return [
             'SHA_1' => [PluginHash::SHA_1, 'hash-value'],
@@ -23,9 +24,7 @@ class PluginHashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider hashProvider
-     */
+    #[DataProvider('hashProvider')]
     public function testToolInitializesHash(string $hashType, string $hashValue): void
     {
         $hash = PluginHash::create($hashType, $hashValue);
@@ -42,7 +41,7 @@ class PluginHashTest extends TestCase
         PluginHash::create('unknown-type', 'hash-value');
     }
 
-    public function equalsProvider(): array
+    public static function equalsProvider(): array
     {
         return [
             'equals with identical type and value' => [
@@ -69,9 +68,7 @@ class PluginHashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider equalsProvider
-     */
+    #[DataProvider('equalsProvider')]
     public function testEquals(
         bool $expected,
         string $leftType,

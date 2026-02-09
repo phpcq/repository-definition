@@ -8,6 +8,7 @@ use Generator;
 use Phpcq\RepositoryDefinition\JsonFileLoaderInterface;
 use Phpcq\RepositoryDefinition\RepositoryInterface;
 use Phpcq\RepositoryDefinition\RepositoryLoader;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function file_get_contents;
@@ -16,7 +17,7 @@ use function json_decode;
 /** @covers \Phpcq\RepositoryDefinition\RepositoryLoader */
 final class RepositoryLoaderTest extends TestCase
 {
-    public function providePlugins(): Generator
+    public static function providePlugins(): Generator
     {
         yield [
             'relative',
@@ -38,7 +39,7 @@ final class RepositoryLoaderTest extends TestCase
         ];
     }
 
-    /** @dataProvider providePlugins */
+    #[DataProvider('providePlugins')]
     public function testUrlAndPathResolvingForPlugins(
         string $plugin,
         string $version,
@@ -51,7 +52,7 @@ final class RepositoryLoaderTest extends TestCase
         $this->assertSame($signature, $repository->getPlugin($plugin)->getVersion($version)->getSignaturePath());
     }
 
-    public function provideTools(): Generator
+    public static function provideTools(): Generator
     {
         yield [
             'relative',
@@ -73,7 +74,7 @@ final class RepositoryLoaderTest extends TestCase
         ];
     }
 
-    /** @dataProvider provideTools */
+    #[DataProvider('provideTools')]
     public function testUrlAndPathResolvingForTools(
         string $tool,
         string $version,
