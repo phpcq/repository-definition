@@ -18,11 +18,6 @@ use Traversable;
 class Tool implements IteratorAggregate, ToolInterface
 {
     /**
-     * The name of the tool.
-     */
-    private string $name;
-
-    /**
      * All versions of the tool.
      *
      * @var array<string, ToolVersionInterface>
@@ -34,9 +29,8 @@ class Tool implements IteratorAggregate, ToolInterface
      *
      * @param string $name The name of the tool.
      */
-    public function __construct(string $name)
+    public function __construct(private readonly string $name)
     {
-        $this->name = $name;
     }
 
     /**

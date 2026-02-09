@@ -91,17 +91,11 @@ final class RepositoryLoaderTest extends TestCase
     {
         $loader = $this->createMock(JsonFileLoaderInterface::class);
         $loader->method('load')->willReturnCallback(
-            static function (string $url) {
-                switch ($url) {
-                    case __DIR__ . '/fixtures/repository.json':
-                    case __DIR__ . '/fixtures/./includes/include.json':
-                        return json_decode(file_get_contents($url), true);
-
-                    case 'http://example.org/repositories/include.json':
-                        return [];
-                }
-
-                return [];
+            static fn(string $url) => match ($url) {
+                __DIR__ . '/fixtures/repository.json',
+                __DIR__ . '/fixtures/./includes/include.json' => json_decode(file_get_contents($url), true),
+                'http://example.org/repositories/include.json' => [],
+                default => [],
             }
         );
 

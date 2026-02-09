@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\Tool\Tool
  */
-class ToolTest extends TestCase
+final class ToolTest extends TestCase
 {
     public function testToolInitializesName(): void
     {

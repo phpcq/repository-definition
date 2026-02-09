@@ -10,31 +10,16 @@ use Phpcq\RepositoryDefinition\VersionRequirementList;
 
 class ToolVersion implements ToolVersionInterface
 {
-    private string $name;
-
-    private string $version;
-
-    private ?string $pharUrl;
-
-    private ?string $signatureUrl;
-
-    private ?ToolHash $hash;
-
-    private ToolRequirements $requirements;
+    private readonly ToolRequirements $requirements;
 
     public function __construct(
-        string $name,
-        string $version,
-        ?string $pharUrl,
+        private readonly string $name,
+        private readonly string $version,
+        private ?string $pharUrl,
         ?ToolRequirements $requirements,
-        ?ToolHash $hash,
-        ?string $signatureUrl
+        private ?ToolHash $hash,
+        private ?string $signatureUrl
     ) {
-        $this->name         = $name;
-        $this->version      = $version;
-        $this->pharUrl      = $pharUrl;
-        $this->hash         = $hash;
-        $this->signatureUrl = $signatureUrl;
         $this->requirements = $requirements ?? new ToolRequirements();
     }
 

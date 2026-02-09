@@ -18,11 +18,6 @@ use Traversable;
 class Plugin implements IteratorAggregate, PluginInterface
 {
     /**
-     * The name of the plugin.
-     */
-    private string $name;
-
-    /**
      * All versions of the plugin.
      *
      * @var PluginVersionInterface[]
@@ -34,9 +29,8 @@ class Plugin implements IteratorAggregate, PluginInterface
      *
      * @param string $name The name of the plugin.
      */
-    public function __construct(string $name)
+    public function __construct(private readonly string $name)
     {
-        $this->name = $name;
     }
 
     /**

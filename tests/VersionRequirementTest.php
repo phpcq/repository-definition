@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\VersionRequirement
  */
-class VersionRequirementTest extends TestCase
+final class VersionRequirementTest extends TestCase
 {
     public function testVersionRequirementInitializes(): void
     {
