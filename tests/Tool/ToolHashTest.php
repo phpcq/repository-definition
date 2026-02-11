@@ -6,6 +6,7 @@ namespace Phpcq\RepositoryDefinition\Test\Tool;
 
 use Phpcq\RepositoryDefinition\Exception\InvalidHashException;
 use Phpcq\RepositoryDefinition\Tool\ToolHash;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ToolHashTest extends TestCase
 {
-    public function hashProvider(): array
+    public static function hashProvider(): array
     {
         return [
             'SHA_1' => [ToolHash::SHA_1, 'hash-value'],
@@ -23,9 +24,7 @@ class ToolHashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider hashProvider
-     */
+    #[DataProvider('hashProvider')]
     public function testToolInitializesHash(string $hashType, string $hashValue): void
     {
         $hash = ToolHash::create($hashType, $hashValue);
@@ -42,36 +41,34 @@ class ToolHashTest extends TestCase
         ToolHash::create('unknown-type', 'hash-value');
     }
 
-    public function equalsProvider(): array
+    public static function equalsProvider(): array
     {
         return [
             'equals with identical type and value' => [
                 'expected'  => true,
-                'left_type' => ToolHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => ToolHash::SHA_1,
-                'right_value' => 'content'
+                'leftType' => ToolHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => ToolHash::SHA_1,
+                'rightValue' => 'content'
             ],
             'does not equal with identical type but different value' => [
                 'expected'  => false,
-                'left_type' => ToolHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => ToolHash::SHA_1,
-                'right_value' => 'bar'
+                'leftType' => ToolHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => ToolHash::SHA_1,
+                'rightValue' => 'bar'
             ],
             'does not equal with different type but identical value' => [
                 'expected'  => false,
-                'left_type' => ToolHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => ToolHash::SHA_256,
-                'right_value' => 'bar'
+                'leftType' => ToolHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => ToolHash::SHA_256,
+                'rightValue' => 'bar'
             ],
         ];
     }
 
-    /**
-     * @dataProvider equalsProvider
-     */
+    #[DataProvider('equalsProvider')]
     public function testEquals(
         bool $expected,
         string $leftType,

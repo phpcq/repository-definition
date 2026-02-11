@@ -6,6 +6,7 @@ namespace Phpcq\RepositoryDefinition\Test\Plugin;
 
 use Phpcq\RepositoryDefinition\Exception\InvalidHashException;
 use Phpcq\RepositoryDefinition\Plugin\PluginHash;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -13,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PluginHashTest extends TestCase
 {
-    public function hashProvider(): array
+    public static function hashProvider(): array
     {
         return [
             'SHA_1' => [PluginHash::SHA_1, 'hash-value'],
@@ -23,9 +24,7 @@ class PluginHashTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider hashProvider
-     */
+    #[DataProvider('hashProvider')]
     public function testToolInitializesHash(string $hashType, string $hashValue): void
     {
         $hash = PluginHash::create($hashType, $hashValue);
@@ -42,36 +41,34 @@ class PluginHashTest extends TestCase
         PluginHash::create('unknown-type', 'hash-value');
     }
 
-    public function equalsProvider(): array
+    public static function equalsProvider(): array
     {
         return [
             'equals with identical type and value' => [
                 'expected'  => true,
-                'left_type' => PluginHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => PluginHash::SHA_1,
-                'right_value' => 'content'
+                'leftType' => PluginHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => PluginHash::SHA_1,
+                'rightValue' => 'content'
             ],
             'does not equal with identical type but different value' => [
                 'expected'  => false,
-                'left_type' => PluginHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => PluginHash::SHA_1,
-                'right_value' => 'bar'
+                'leftType' => PluginHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => PluginHash::SHA_1,
+                'rightValue' => 'bar'
             ],
             'does not equal with different type but identical value' => [
                 'expected'  => false,
-                'left_type' => PluginHash::SHA_1,
-                'left_value' => 'content',
-                'right_type' => PluginHash::SHA_256,
-                'right_value' => 'bar'
+                'leftType' => PluginHash::SHA_1,
+                'leftValue' => 'content',
+                'rightType' => PluginHash::SHA_256,
+                'rightValue' => 'bar'
             ],
         ];
     }
 
-    /**
-     * @dataProvider equalsProvider
-     */
+    #[DataProvider('equalsProvider')]
     public function testEquals(
         bool $expected,
         string $leftType,

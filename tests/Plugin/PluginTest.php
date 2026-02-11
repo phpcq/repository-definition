@@ -6,9 +6,10 @@ namespace Phpcq\RepositoryDefinition\Test\Plugin;
 
 use InvalidArgumentException;
 use LogicException;
-use Phpcq\RepositoryDefinition\Plugin\AbstractPluginVersion;
 use Phpcq\RepositoryDefinition\Plugin\Plugin;
 use Phpcq\RepositoryDefinition\Plugin\PluginHash;
+use Phpcq\RepositoryDefinition\Plugin\PluginRequirements;
+use Phpcq\RepositoryDefinition\Plugin\PluginVersionInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -79,18 +80,16 @@ class PluginTest extends TestCase
         string $version,
         string $apiVersion,
         ?PluginHash $hash
-    ): AbstractPluginVersion {
-        return $this->getMockForAbstractClass(
-            AbstractPluginVersion::class,
-            [
-                $name,
-                $version,
-                $apiVersion,
-                null,
-                '/path/to/plugin',
-                null,
-                $hash ?? PluginHash::create(PluginHash::SHA_512, 'hashy-corp'),
-            ]
-        );
+    ): PluginVersionInterface {
+        $mock = $this->createMock(PluginVersionInterface::class);
+        $mock->method('getName')->willReturn($name);
+        $mock->method('getVersion')->willReturn($version);
+        $mock->method('getApiVersion')->willReturn($apiVersion);
+        $mock->method('getFilePath')->willReturn('/path/to/plugin');
+        $mock->method('getSignaturePath')->willReturn(null);
+        $mock->method('getHash')->willReturn($hash ?? PluginHash::create(PluginHash::SHA_512, 'hashy-corp'));
+        $mock->method('getRequirements')->willReturn(new PluginRequirements());
+
+        return $mock;
     }
 }
