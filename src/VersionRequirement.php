@@ -6,20 +6,14 @@ namespace Phpcq\RepositoryDefinition;
 
 class VersionRequirement
 {
-    private string $name;
-
-    private string $constraint;
-
     /**
      * Create a new instance.
      *
      * @param string $name
      * @param string $constraint
      */
-    public function __construct(string $name, string $constraint = '*')
+    public function __construct(private readonly string $name, private readonly string $constraint = '*')
     {
-        $this->name       = $name;
-        $this->constraint = $constraint;
     }
 
     /**

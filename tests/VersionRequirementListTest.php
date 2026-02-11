@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\VersionRequirementList
  */
-class VersionRequirementListTest extends TestCase
+final class VersionRequirementListTest extends TestCase
 {
     public function testVersionRequirementListCanBeCreated(): void
     {

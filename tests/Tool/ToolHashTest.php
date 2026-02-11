@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\Tool\ToolHash
  */
-class ToolHashTest extends TestCase
+final class ToolHashTest extends TestCase
 {
     public static function hashProvider(): array
     {

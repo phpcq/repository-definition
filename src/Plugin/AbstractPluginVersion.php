@@ -11,38 +11,23 @@ use RuntimeException;
 
 abstract class AbstractPluginVersion implements PluginVersionInterface
 {
-    private string $name;
+    private readonly string $apiVersion;
 
-    private string $version;
-
-    private string $apiVersion;
-
-    private PluginHash $hash;
-
-    private PluginRequirements $requirements;
-
-    private string $filePath;
-
-    private ?string $signaturePath;
+    private readonly PluginRequirements $requirements;
 
     public function __construct(
-        string $name,
-        string $version,
+        private readonly string $name,
+        private readonly string $version,
         string $apiVersion,
         ?PluginRequirements $requirements,
-        string $filePath,
-        ?string $signaturePath,
-        PluginHash $hash
+        private readonly string $filePath,
+        private readonly ?string $signaturePath,
+        private readonly PluginHash $hash
     ) {
         if ($apiVersion !== '1.0.0') {
             throw new RuntimeException('Invalid version string: ' . $apiVersion);
         }
-        $this->name          = $name;
-        $this->version       = $version;
         $this->apiVersion    = $apiVersion;
-        $this->hash          = $hash;
-        $this->filePath      = $filePath;
-        $this->signaturePath = $signaturePath;
         $this->requirements  = $requirements ?? new PluginRequirements();
     }
 

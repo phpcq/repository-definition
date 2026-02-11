@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\Tool\ToolVersion
  */
-class ToolVersionTest extends TestCase
+final class ToolVersionTest extends TestCase
 {
     public function testInitializesWithEmptyValues(): void
     {

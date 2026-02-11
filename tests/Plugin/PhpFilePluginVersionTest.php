@@ -14,7 +14,7 @@ use RuntimeException;
  * @covers \Phpcq\RepositoryDefinition\Plugin\AbstractPluginVersion
  * @covers \Phpcq\RepositoryDefinition\Plugin\PhpFilePluginVersion
  */
-class PhpFilePluginVersionTest extends TestCase
+final class PhpFilePluginVersionTest extends TestCase
 {
     public function testGetters(): void
     {

@@ -27,12 +27,6 @@ abstract class AbstractHash
     public const SHA_384 = 'sha-384';
     public const SHA_512 = 'sha-512';
 
-    /** @var string */
-    private $type;
-
-    /** @var string */
-    private $value;
-
     public function getType(): string
     {
         return $this->type;
@@ -66,20 +60,17 @@ abstract class AbstractHash
     /** @return static */
     public static function createForString(string $contents, string $type = self::SHA_512): self
     {
-        return static::create($type, (string) hash(self::HASHMAP[$type], $contents));
+        return static::create($type, hash(self::HASHMAP[$type], $contents));
     }
 
     /**
      * @throws InvalidHashException When the hash type is unknown.
      */
-    final private function __construct(string $type, string $value)
+    final private function __construct(private readonly string $type, private readonly string $value)
     {
-        if (!in_array($type, [self::SHA_1, self::SHA_256, self::SHA_384, self::SHA_512])) {
-            throw new InvalidHashException($type, $value);
+        if (!in_array($this->type, [self::SHA_1, self::SHA_256, self::SHA_384, self::SHA_512])) {
+            throw new InvalidHashException($this->type, $this->value);
         }
-
-        $this->type  = $type;
-        $this->value = $value;
     }
 
     final public function equals(AbstractHash $other): bool

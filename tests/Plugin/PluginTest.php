@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\Plugin\Plugin
  */
-class PluginTest extends TestCase
+final class PluginTest extends TestCase
 {
     public function testToolInitializesName(): void
     {

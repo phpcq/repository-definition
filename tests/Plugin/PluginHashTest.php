@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Phpcq\RepositoryDefinition\Plugin\PluginHash
  */
-class PluginHashTest extends TestCase
+final class PluginHashTest extends TestCase
 {
     public static function hashProvider(): array
     {
