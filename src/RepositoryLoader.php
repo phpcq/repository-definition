@@ -238,9 +238,7 @@ final class RepositoryLoader
     private function walkPluginVersions(string $pluginName, array $versions, string $baseDir): void
     {
         foreach ($versions as $pluginVersion) {
-            if (null !== $this->apiVersionRange
-                && !$this->apiVersionRange->contains($pluginVersion['api-version'])
-            ) {
+            if ($this->apiVersionRange?->contains($pluginVersion['api-version']) === false) {
                 continue;
             }
             if (!isset($this->plugins[$pluginName])) {
