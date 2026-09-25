@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpcq\RepositoryDefinition;
 
 use Phpcq\RepositoryDefinition\Exception\RuntimeException;
+use Phpcq\RepositoryDefinition\Plugin\ApiVersionRange;
 use Phpcq\RepositoryDefinition\Plugin\PhpFilePluginVersion;
 use Phpcq\RepositoryDefinition\Plugin\Plugin;
 use Phpcq\RepositoryDefinition\Plugin\PluginHash;
@@ -84,6 +85,8 @@ final class RepositoryLoader
 
     private readonly JsonFileLoaderInterface $fileLoader;
 
+    private readonly ?ApiVersionRange $apiVersionRange;
+
     /**
      * @psalm-param TRepositoryCheckSum|null $checksum
      *
@@ -94,9 +97,10 @@ final class RepositoryLoader
     public static function load(
         string $fileName,
         ?array $checksum = null,
-        ?JsonFileLoaderInterface $fileLoader = null
+        ?JsonFileLoaderInterface $fileLoader = null,
+        ?ApiVersionRange $apiVersionRange = null
     ): ?array {
-        return self::loadData($fileName, $checksum, $fileLoader);
+        return self::loadData($fileName, $checksum, $fileLoader, $apiVersionRange);
     }
 
     /**
@@ -107,9 +111,10 @@ final class RepositoryLoader
     public static function loadData(
         string $fileName,
         ?array $checksum = null,
-        ?JsonFileLoaderInterface $fileLoader = null
+        ?JsonFileLoaderInterface $fileLoader = null,
+        ?ApiVersionRange $apiVersionRange = null
     ): ?array {
-        $instance = new RepositoryLoader($fileLoader);
+        $instance = new RepositoryLoader($fileLoader, $apiVersionRange);
         $instance->readFile($fileName, $checksum);
 
         $tools = array_values($instance->tools);
@@ -129,10 +134,11 @@ final class RepositoryLoader
     public static function loadRepository(
         string $fileName,
         ?array $checksum = null,
-        ?JsonFileLoaderInterface $fileLoader = null
+        ?JsonFileLoaderInterface $fileLoader = null,
+        ?ApiVersionRange $apiVersionRange = null
     ): Repository {
         $repository = new Repository();
-        $data       = self::loadData($fileName, $checksum, $fileLoader);
+        $data       = self::loadData($fileName, $checksum, $fileLoader, $apiVersionRange);
         if ($data === null) {
             return $repository;
         }
@@ -147,9 +153,12 @@ final class RepositoryLoader
         return $repository;
     }
 
-    private function __construct(?JsonFileLoaderInterface $fileLoader = null)
-    {
+    private function __construct(
+        ?JsonFileLoaderInterface $fileLoader = null,
+        ?ApiVersionRange $apiVersionRange = null
+    ) {
         $this->fileLoader = $fileLoader ?: new FileGetContentsJsonFileLoader();
+        $this->apiVersionRange = $apiVersionRange;
     }
 
     /** @psalm-param TRepositoryCheckSum|null $checksum */
@@ -228,10 +237,15 @@ final class RepositoryLoader
      */
     private function walkPluginVersions(string $pluginName, array $versions, string $baseDir): void
     {
-        if (!isset($this->plugins[$pluginName])) {
-            $this->plugins[$pluginName] = new Plugin($pluginName);
-        }
         foreach ($versions as $pluginVersion) {
+            if (null !== $this->apiVersionRange
+                && !$this->apiVersionRange->contains($pluginVersion['api-version'])
+            ) {
+                continue;
+            }
+            if (!isset($this->plugins[$pluginName])) {
+                $this->plugins[$pluginName] = new Plugin($pluginName);
+            }
             $this->plugins[$pluginName]->addVersion(
                 $this->loadPluginVersion($pluginVersion, $pluginName, $baseDir)
             );
