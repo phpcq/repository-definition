@@ -24,7 +24,7 @@ abstract class AbstractPluginVersion implements PluginVersionInterface
         private readonly ?string $signaturePath,
         private readonly PluginHash $hash
     ) {
-        if ($apiVersion !== '1.0.0') {
+        if (!ApiVersionRange::isValidVersion($apiVersion)) {
             throw new RuntimeException('Invalid version string: ' . $apiVersion);
         }
         $this->apiVersion    = $apiVersion;
