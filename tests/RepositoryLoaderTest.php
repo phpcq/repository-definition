@@ -6,6 +6,7 @@ namespace Phpcq\RepositoryDefinition\Test;
 
 use Generator;
 use Phpcq\RepositoryDefinition\JsonFileLoaderInterface;
+use Phpcq\RepositoryDefinition\Plugin\ApiVersionRange;
 use Phpcq\RepositoryDefinition\RepositoryInterface;
 use Phpcq\RepositoryDefinition\RepositoryLoader;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -87,6 +88,24 @@ final class RepositoryLoaderTest extends TestCase
         $this->assertSame($signature, $repository->getTool($tool)->getVersion($version)->getSignatureUrl());
     }
 
+    public function testSkipsPluginVersionsOutsideOfApiRange(): void
+    {
+        $repository = $this->loadApiVersionRepository(new ApiVersionRange('1.0.0', '1.0.0'));
+
+        self::assertTrue($repository->hasPlugin('mixed'));
+        self::assertTrue($repository->getPlugin('mixed')->has('1.0.0'));
+        self::assertFalse($repository->getPlugin('mixed')->has('1.1.0'));
+        self::assertFalse($repository->hasPlugin('future-only'));
+    }
+
+    public function testLoadsAllPluginVersionsWithoutRange(): void
+    {
+        $repository = $this->loadApiVersionRepository(null);
+
+        self::assertTrue($repository->getPlugin('mixed')->has('1.1.0'));
+        self::assertTrue($repository->hasPlugin('future-only'));
+    }
+
     private function loadRepository(): RepositoryInterface
     {
         $loader = $this->createMock(JsonFileLoaderInterface::class);
@@ -100,5 +119,15 @@ final class RepositoryLoaderTest extends TestCase
         );
 
         return RepositoryLoader::loadRepository(__DIR__ . '/fixtures/repository.json', null, $loader);
+    }
+
+    private function loadApiVersionRepository(?ApiVersionRange $range): RepositoryInterface
+    {
+        $loader = $this->createMock(JsonFileLoaderInterface::class);
+        $loader->method('load')->willReturnCallback(
+            static fn(string $url) => json_decode(file_get_contents($url), true)
+        );
+
+        return RepositoryLoader::loadRepository(__DIR__ . '/fixtures/api-versions.json', null, $loader, $range);
     }
 }

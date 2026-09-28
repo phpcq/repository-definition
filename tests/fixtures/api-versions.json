@@ -1,0 +1,29 @@
+{
+    "plugins": {
+        "mixed": [
+            {
+                "api-version": "1.0.0",
+                "version": "1.0.0",
+                "type": "php-file",
+                "url": "https://example.org/mixed-1.0.0.php",
+                "checksum": {"type": "sha-512", "value": "abc"}
+            },
+            {
+                "api-version": "1.1.0",
+                "version": "1.1.0",
+                "type": "php-file",
+                "url": "https://example.org/mixed-1.1.0.php",
+                "checksum": {"type": "sha-512", "value": "abc"}
+            }
+        ],
+        "future-only": [
+            {
+                "api-version": "1.1.0",
+                "version": "2.0.0",
+                "type": "php-file",
+                "url": "https://example.org/future-2.0.0.php",
+                "checksum": {"type": "sha-512", "value": "abc"}
+            }
+        ]
+    }
+}

@@ -51,14 +51,29 @@ final class PhpFilePluginVersionTest extends TestCase
         $this->assertSame(__FILE__, $instance->getSignaturePath());
     }
 
+    public function testAcceptsHigherApiVersion(): void
+    {
+        $instance = new PhpFilePluginVersion(
+            'plugin-a',
+            '2.0.0',
+            '1.1.0',
+            new PluginRequirements(),
+            __FILE__,
+            null,
+            PluginHash::create(PluginHash::SHA_512, 'hashy-corp')
+        );
+
+        $this->assertSame('1.1.0', $instance->getApiVersion());
+    }
+
     public function testThrowsForInvalidVersion(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Invalid version string: 11.0.0');
+        $this->expectExceptionMessage('Invalid version string: 1.0');
         new PhpFilePluginVersion(
             'plugin-a',
             '2.0.0',
-            '11.0.0',
+            '1.0',
             new PluginRequirements(),
             __FILE__,
             null,
